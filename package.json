@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/MLopezJ/shadow-to-lwm2m-types-js#readme",
   "devDependencies": {
-    "husky": "^8.0.2"
+    "@types/node": "^18.11.9",
+    "@types/xml2js": "^0.4.11",
+    "husky": "^8.0.2",
+    "xml2js": "^0.4.23"
   }
 }
