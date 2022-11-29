@@ -1,0 +1,26 @@
+{
+  "name": "shadow-to-lwm2m-types",
+  "version": "1.0.0",
+  "description": "Generate a LwM2M object from a given shadow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MLopezJ/shadow-to-lwm2m-types-js.git"
+  },
+  "keywords": [
+    "lwm2m",
+    "shadow"
+  ],
+  "author": "Mauro Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MLopezJ/shadow-to-lwm2m-types-js/issues"
+  },
+  "homepage": "https://github.com/MLopezJ/shadow-to-lwm2m-types-js#readme",
+  "devDependencies": {
+    "husky": "^8.0.2"
+  }
+}
