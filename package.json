@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MLopezJ/shadow-to-lwm2m-types-js.git"
@@ -24,6 +25,7 @@
     "@types/node": "^18.11.9",
     "@types/xml2js": "^0.4.11",
     "husky": "^8.0.2",
+    "typescript": "^4.9.3",
     "xml2js": "^0.4.23"
   }
 }
