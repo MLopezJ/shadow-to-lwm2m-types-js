@@ -109,6 +109,29 @@ npm test
 ]
 ```
 
+## Expected process: Clean not provided value in shadow
+
+```json
+{
+  "state": {
+    "reported": {
+      "Temperature": {
+        "0": {
+          "Application Type": "",
+          "Max Measured Value": "23.51",
+          "Max Range Value": "85.0",
+          "Min Measured Value": "23.51",
+          "Min Range Value": "-40.0",
+          "Sensor Units": "Celsius degrees",
+          "Sensor Value": "24.57",
+          "Timestamp": "2022-10-07T13:33:22Z"
+        }
+      }
+    }
+  }
+}
+```
+
 ## Expected process: Combine ids with values
 
 ```json
