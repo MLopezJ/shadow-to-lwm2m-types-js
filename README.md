@@ -14,6 +14,7 @@ npm test
 ## Expected Input
 
 ```json
+// Shadow
 {
   "state": {
     "reported": {
@@ -44,6 +45,64 @@ npm test
     }
   }
 }
+
+// Mapping of names and ids
+[
+  {
+    "name": "Temperature",
+    "key": "3303",
+    "properties":[
+      {
+        "name":"Application Type",
+        "key":"5750"
+      },
+      {
+        "name":"Fractional Timestamp",
+        "key":"6050"
+      },
+      {
+        "name":"Max Measured Value",
+        "key":"5602"
+      },
+      {
+        "name":"Max Range Value",
+        "key":"5604"
+      },
+      {
+        "name":"Measurement Quality Indicator",
+        "key":"6042"
+      },
+      {
+        "name":"Measurement Quality Level",
+        "key":"6049"
+      },
+      {
+        "name":"Min Measured Value",
+        "key":"5601"
+      },
+      {
+        "name":"Min Range Value",
+        "key":"5603"
+      },
+      {
+        "name":"Reset Min and Max Measured Values",
+        "key":"5603" // X
+      },
+      {
+        "name":"Sensor Units",
+        "key":"5701"
+      },
+      {
+        "name":"Sensor Value",
+        "key":"5700"
+      },
+      {
+        "name":"Timestamp",
+        "5518":"5603"
+      },
+    ]
+  }
+]
 ```
 
 ## Expected output
