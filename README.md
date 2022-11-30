@@ -105,6 +105,89 @@ npm test
 ]
 ```
 
+## Expected process: Combine ids with values
+
+```json
+{
+  "3303": [
+    {
+      "5518": "1665149633",
+      "5601": "23.51",
+      "5602": "23.51",
+      "5603": "-40",
+      "5604": "85",
+      "5700": "24.57",
+      "5701": "Celsius degrees"
+    }
+  ]
+}
+```
+
+## Expected process: Update id
+
+```json
+{
+  "3303:1.1": [
+    {
+      "5518": "1665149633",
+      "5601": "23.51",
+      "5602": "23.51",
+      "5603": "-40",
+      "5604": "85",
+      "5700": "24.57",
+      "5701": "Celsius degrees"
+    }
+  ]
+}
+```
+
+## Expected process: cast data
+
+```json
+{
+  "3303:1.1": [
+    {
+      "5518": 1665149633,
+      "5601": 23.51,
+      "5602": 23.51,
+      "5603": -40,
+      "5604": 85,
+      "5700": 24.57,
+      "5701": "Celsius degrees"
+    }
+  ]
+}
+```
+
+## Expected process: validate object
+
+```typescript
+import { validate } from "@nordicsemiconductor/lwm2m-types";
+const temperature = {
+  "3303:1.1": [
+    {
+      "5518": 1665149633,
+      "5601": 23.51,
+      "5602": 23.51,
+      "5603": -40,
+      "5604": 85,
+      "5700": 24.57,
+      "5701": "Celsius degrees",
+    },
+  ],
+};
+const maybeValidLwM2M = validate(temperature);
+
+// Because is is know to be good, there must be no errors
+if ("errors" in maybeValidLwM2M) {
+  console.error(maybeValidLwM2M.errors);
+  throw new Error(`Validation failed`);
+}
+
+// then we can access LwM2M objects in the shadow document
+const shadow = maybeValidLwM2M.value;
+```
+
 ## Expected output
 
 ```json
