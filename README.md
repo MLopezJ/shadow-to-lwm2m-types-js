@@ -80,7 +80,6 @@ export const Temperature = {
     "reported": {
       "Temperature": {
         "0": {
-          "Application Type": "",
           "Max Measured Value": "23.51",
           "Max Range Value": "85.0",
           "Min Measured Value": "23.51",
