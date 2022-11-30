@@ -50,63 +50,26 @@ npm test
 
 ### Mapping of names and ids
 
-```json
-[
-  {
-    "name": "Temperature",
-    "key": "3303",
-    "properties": [
-      {
-        "name": "Application Type",
-        "key": "5750"
-      },
-      {
-        "name": "Fractional Timestamp",
-        "key": "6050"
-      },
-      {
-        "name": "Max Measured Value",
-        "key": "5602"
-      },
-      {
-        "name": "Max Range Value",
-        "key": "5604"
-      },
-      {
-        "name": "Measurement Quality Indicator",
-        "key": "6042"
-      },
-      {
-        "name": "Measurement Quality Level",
-        "key": "6049"
-      },
-      {
-        "name": "Min Measured Value",
-        "key": "5601"
-      },
-      {
-        "name": "Min Range Value",
-        "key": "5603"
-      },
-      {
-        "name": "Reset Min and Max Measured Values",
-        "key": "5603"
-      },
-      {
-        "name": "Sensor Units",
-        "key": "5701"
-      },
-      {
-        "name": "Sensor Value",
-        "key": "5700"
-      },
-      {
-        "name": "Timestamp",
-        "5518": "5603"
-      }
-    ]
-  }
-]
+```typescript
+export const Temperature = {
+  Temperature: {
+    ObjectID: 3303,
+    properties: {
+      "Application Type": 5750,
+      "Fractional Timestamp": 6050,
+      "Max Measured Value": 5602,
+      "Max Range Value": 5604,
+      "Measurement Quality Indicator": 6042,
+      "Measurement Quality Level": 6049,
+      "Min Measured Value": 5601,
+      "Min Range Value": 5603,
+      "Reset Min and Max Measured Values": 5603,
+      "Sensor Units": 5701,
+      "Sensor Value": 5700,
+      Timestamp: 5603,
+    },
+  },
+};
 ```
 
 ## Expected process: Clean not provided value in shadow

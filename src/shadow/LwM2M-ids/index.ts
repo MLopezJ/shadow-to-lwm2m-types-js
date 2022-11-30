@@ -1,13 +1,13 @@
-import ConnectivityMonitoring from "./ConnectivityMonitoring.json";
-import ECIDSignalMeasurementInformation from "./ECID-SignalMeasurementInformation.json";
-import Device from "./Device.json";
-import FirmwareUpdate from "./FirmwareUpdate.json";
-import Humidity from "./Humidity.json";
-import Location from "./Location.json";
-import LwM2MServer from "./LwM2MServer.json";
-import Pressure from "./Pressure.json";
-import PushButton from "./PushButton.json";
-import Temperature from "./Temperature.json";
+import { ConnectivityMonitoring } from "./ConnectivityMonitoring";
+import { ECIDSignalMeasurementInformation } from "./ECID-SignalMeasurementInformation";
+import { Device } from "./Device";
+import { FirmwareUpdate } from "./FirmwareUpdate";
+import { Humidity } from "./Humidity";
+import { Location } from "./Location";
+import { LwM2MServer } from "./LwM2MServer";
+import { Pressure } from "./Pressure";
+import { PushButton } from "./PushButton";
+import { Temperature } from "./Temperature";
 
 /**
  * Map shadow's name values with LwM2M IDs Object and Properties
