@@ -1,0 +1,34 @@
+{
+  "name": "Location",
+  "key": "6",
+  "properties": [
+    {
+      "name": "Altitude",
+      "key": "2"
+    },
+    {
+      "name": "Latitude",
+      "key": "0"
+    },
+    {
+      "name": "Longitude",
+      "key": "1"
+    },
+    {
+      "name": "Radius",
+      "key": "3"
+    },
+    {
+      "name": "Speed",
+      "key": "6"
+    },
+    {
+      "name": "Timestamp",
+      "key": "5"
+    },
+    {
+      "name": "Velocity",
+      "key": "4"
+    }
+  ]
+}

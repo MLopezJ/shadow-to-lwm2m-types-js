@@ -1,0 +1,42 @@
+{
+  "name": "Firmware Update",
+  "key": "5",
+  "properties": [
+    {
+      "name": "Firmware Update Protocol Support",
+      "key": "8"
+    },
+    {
+      "name": "Firmware Update Delivery Method",
+      "key": "9"
+    },
+    {
+      "name": "Package",
+      "key": "0"
+    },
+    {
+      "name": "Package URI",
+      "key": "1"
+    },
+    {
+      "name": "PkgName",
+      "key": "6"
+    },
+    {
+      "name": "PkgVersion",
+      "key": "7"
+    },
+    {
+      "name": "State",
+      "key": "3"
+    },
+    {
+      "name": "Update",
+      "key": "2"
+    },
+    {
+      "name": "Update Result",
+      "key": "5"
+    }
+  ]
+}

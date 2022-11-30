@@ -1,0 +1,54 @@
+{
+  "name": "Connectivity Monitoring",
+  "key": "4",
+  "properties": [
+    {
+      "name": "Radio Signal Strength",
+      "key": "2"
+    },
+    {
+      "name": "Cell ID",
+      "key": "8"
+    },
+    {
+      "name": "SMNC",
+      "key": "9"
+    },
+    {
+      "name": "SMCC",
+      "key": "10"
+    },
+    {
+      "name": "LAC",
+      "key": "12"
+    },
+    {
+      "name": "APN",
+      "key": "7"
+    },
+    {
+      "name": "Available Network Bearer",
+      "key": "1"
+    },
+    {
+      "name": "IP Addresses",
+      "key": "4"
+    },
+    {
+      "name": "Router IP Addresses",
+      "key": "5"
+    },
+    {
+      "name": "Link Quality",
+      "key": "3"
+    },
+    {
+      "name": "Network Bearer",
+      "key": "0"
+    },
+    {
+      "name": "SignalSNR",
+      "key": "11"
+    }
+  ]
+}

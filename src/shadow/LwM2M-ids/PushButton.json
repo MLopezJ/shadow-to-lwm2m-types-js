@@ -1,0 +1,26 @@
+{
+  "name": "Push button",
+  "key": "3347",
+  "properties": [
+    {
+      "name": "Application Type",
+      "key": "5750"
+    },
+    {
+      "name": "Digital Input Counter",
+      "key": "5501"
+    },
+    {
+      "name": "Digital Input State",
+      "key": "5500"
+    },
+    {
+      "name": "Fractional Timestamp",
+      "key": "6050"
+    },
+    {
+      "name": "Timestamp",
+      "key": "5518"
+    }
+  ]
+}

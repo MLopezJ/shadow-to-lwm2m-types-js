@@ -1,0 +1,102 @@
+{
+  "name": "LwM2M Server",
+  "key": "1",
+  "properties": [
+    {
+      "name": "AltitAPN Linkude",
+      "key": "10"
+    },
+    {
+      "name": "Binding",
+      "key": "7"
+    },
+    {
+      "name": "Bootstrap on Registration Failure",
+      "key": "16"
+    },
+    {
+      "name": "Bootstrap-Request Trigger",
+      "key": "9"
+    },
+    {
+      "name": "Communication Retry Count",
+      "key": "17"
+    },
+    {
+      "name": "Communication Retry Timer",
+      "key": "18"
+    },
+    {
+      "name": "Communication Sequence Delay Timer",
+      "key": "19"
+    },
+    {
+      "name": "Communication Sequence Retry Count",
+      "key": "20"
+    },
+    {
+      "name": "Default Maximum Period",
+      "key": "3"
+    },
+    {
+      "name": "Default Minimum Period",
+      "key": "3"
+    },
+    {
+      "name": "Disable",
+      "key": "4"
+    },
+    {
+      "name": "Disable Timeout",
+      "key": "5"
+    },
+    {
+      "name": "Initial Registration Delay Timer",
+      "key": "14"
+    },
+    {
+      "name": "Last Bootstrapped",
+      "key": "12"
+    },
+    {
+      "name": "Lifetime",
+      "key": "1"
+    },
+    {
+      "name": "Mute Send",
+      "key": "23"
+    },
+    {
+      "name": "Notification Storing When Disabled or Offline",
+      "key": "6"
+    },
+    {
+      "name": "Preferred Transport",
+      "key": "22"
+    },
+    {
+      "name": "Registration Failure Block",
+      "key": "15"
+    },
+    {
+      "name": "Registration Priority Order",
+      "key": "13"
+    },
+    {
+      "name": "Registration Update Trigger",
+      "key": "8"
+    },
+    {
+      "name": "Short Server ID",
+      "key": "0"
+    },
+    {
+      "name": "TLS-DTLS Alert Code",
+      "key": "11"
+    },
+    {
+      "name": "Trigger",
+      "key": "21"
+    }
+  ]
+}
