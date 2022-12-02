@@ -72,25 +72,52 @@ export const Temperature = {
 };
 ```
 
+## Expected process: Transform shadow from map to plain object
+
+```json
+{
+  "Temperature": [
+    {
+      "Application Type": "",
+      "Fractional Timestamp": {
+        "noValue": true
+      },
+      "Max Measured Value": "23.51",
+      "Max Range Value": "85.0",
+      "Measurement Quality Indicator": {
+        "noValue": true
+      },
+      "Measurement Quality Level": {
+        "noValue": true
+      },
+      "Min Measured Value": "23.51",
+      "Min Range Value": "-40.0",
+      "Reset Min and Max Measured Values": {
+        "noValue": true
+      },
+      "Sensor Units": "Celsius degrees",
+      "Sensor Value": "24.57",
+      "Timestamp": "2022-10-07T13:33:22Z"
+    }
+  ]
+}
+```
+
 ## Expected process: Clean not provided value in shadow
 
 ```json
 {
-  "state": {
-    "reported": {
-      "Temperature": {
-        "0": {
-          "Max Measured Value": "23.51",
-          "Max Range Value": "85.0",
-          "Min Measured Value": "23.51",
-          "Min Range Value": "-40.0",
-          "Sensor Units": "Celsius degrees",
-          "Sensor Value": "24.57",
-          "Timestamp": "2022-10-07T13:33:22Z"
-        }
-      }
+  "Temperature": [
+    {
+      "Max Measured Value": "23.51",
+      "Max Range Value": "85.0",
+      "Min Measured Value": "23.51",
+      "Min Range Value": "-40.0",
+      "Sensor Units": "Celsius degrees",
+      "Sensor Value": "24.57",
+      "Timestamp": "2022-10-07T13:33:22Z"
     }
-  }
+  ]
 }
 ```
 
