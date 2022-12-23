@@ -5,7 +5,10 @@ type filteredPlainObject = Record<string, string | propMap>;
 type plainObject = Record<string, value>;
 
 /**
- * Remove property from shadow when its value is {"noValue": true} or empty string or empty object
+ * Remove property from shadow when its value is:
+ *    No value --> {"noValue": true}
+ *    Empty string --> {prop: ""}
+ *    Empty object --> {prop: {}}
  */
 export const removeNotProvidedProp = (
   object: plainObject

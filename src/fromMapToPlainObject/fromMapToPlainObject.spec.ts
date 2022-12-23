@@ -1,4 +1,4 @@
-import type { shadowObject } from "./cleanShadow";
+import type { shadowObject } from "../cleanShadow/cleanShadow";
 import { fromMapToPlainObject, plainObject } from "./fromMapToPlainObject";
 
 describe("fromMapToPlainObject()", () => {
