@@ -73,6 +73,7 @@ export const Temperature = {
 ```
 
 ## Expected process: Transform shadow from map to plain object
+- [x] Done
 
 ```json
 {
@@ -104,6 +105,7 @@ export const Temperature = {
 ```
 
 ## Expected process: Clean not provided value in shadow
+- [x] Done
 
 ```json
 {
@@ -122,6 +124,7 @@ export const Temperature = {
 ```
 
 ## Expected process: Combine ids with values
+- [x] Done
 
 ```json
 {
@@ -140,6 +143,7 @@ export const Temperature = {
 ```
 
 ## Expected process: Update id
+- [ ] Done
 
 ```json
 {
@@ -158,6 +162,7 @@ export const Temperature = {
 ```
 
 ## Expected process: cast data
+- [ ] Done
 
 ```json
 {
@@ -176,6 +181,7 @@ export const Temperature = {
 ```
 
 ## Expected process: validate object
+- [ ] Done
 
 ```typescript
 import { validate } from "@nordicsemiconductor/lwm2m-types";
