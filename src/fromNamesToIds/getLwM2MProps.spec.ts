@@ -10,7 +10,7 @@ describe("getLwM2MProps", () => {
     it("Should return undefined when the given LwM2M resource name is not correct", () => {
       const input = "Temperature not correct";
       const expected = undefined;
-      expect(getLwM2MProps(input)).toStrictEqual(expected);
+      expect(getLwM2MProps(input as any)).toStrictEqual(expected);
     });
   });
   

@@ -1,3 +1,4 @@
+import type { LwM2MTypes } from "src/shadow/LwM2M-ids";
 import { getPropsId } from "./getPropsId";
 import { getResourceId } from "./getResourceId";
 
@@ -13,9 +14,9 @@ export const nameToId = (
 ): { [x: string]: (Record<string, string> | undefined)[] } | undefined =>
   Object.keys(shadow)
     .map((resource) => {
-      const objectId = getResourceId(resource);
+      const objectId = getResourceId(resource as keyof LwM2MTypes);
       return objectId !== undefined
-        ? { [`${objectId}`]: getPropsId(shadow[`${resource}`]!, resource) }
+        ? { [`${objectId}`]: getPropsId(shadow[`${resource}`]!, resource as keyof LwM2MTypes) }
         : undefined;
     })
     .filter((element) => element !== undefined)

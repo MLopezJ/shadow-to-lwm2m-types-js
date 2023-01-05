@@ -1,13 +1,14 @@
 import { getLwM2MProps } from "./getLwM2MProps";
 import { pairValue } from "./pairValue";
 import type { props } from "./nameToId";
+import type { LwM2MTypes } from "src/shadow/LwM2M-ids";
 
 /**
  * Transform keys of the object to their equivalent id at the props level
  */
  export const getPropsId = (
     object: props,
-    resource: string
+    resource: keyof LwM2MTypes
   ): (Record<string, string> | undefined)[] =>
     object!.map((propsObject: Record<string, string>) =>
       Object.entries(propsObject)
