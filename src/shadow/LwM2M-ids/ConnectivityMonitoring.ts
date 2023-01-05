@@ -1,5 +1,8 @@
-export const ConnectivityMonitoring = {
-  "Connectivity Monitoring": "4",
+import type { lwM2MObject } from "./index";
+
+export const ConnectivityMonitoring: lwM2MObject = {
+  id: "4",
+  name: "Connectivity Monitoring",
   properties: {
     "Radio Signal Strength": "2",
     "Cell ID": "8",

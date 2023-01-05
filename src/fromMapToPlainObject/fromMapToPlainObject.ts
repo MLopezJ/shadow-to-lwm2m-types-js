@@ -1,4 +1,4 @@
-import type { shadowObject, noValue, propMap } from "./cleanShadow";
+import type { shadowObject, noValue, propMap } from "../cleanShadow/cleanShadow";
 
 export type plainObject = Record<string, propObject[]>;
 
@@ -7,7 +7,7 @@ type propObject = Record<string, prop>;
 type prop = string | noValue | {} | propMap;
 
 /**
- * Transform map data struct to plain object
+ * Transforms data struct to plain object
  */
 export const fromMapToPlainObject = (value: shadowObject): plainObject => {
   const objectKeys = Object.keys(value);

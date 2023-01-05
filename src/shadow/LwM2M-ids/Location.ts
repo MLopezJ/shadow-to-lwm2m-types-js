@@ -1,5 +1,8 @@
-export const Location = {
-  Location: "6",
+import type { lwM2MObject } from "./index";
+
+export const Location: lwM2MObject = {
+  id: "6",
+  name: "Location",
   properties: {
     Altitude: "2",
     Latitude: "0",

@@ -1,4 +1,4 @@
-import { fromMapToPlainObject } from "./fromMapToPlainObject";
+import { fromMapToPlainObject } from "../fromMapToPlainObject/fromMapToPlainObject";
 import { removeNotProvidedProp } from "./removeNotProvidedValues";
 
 /**
@@ -43,7 +43,8 @@ export type noValue = {
 export type propMap = Record<string, string>;
 
 /**
- * Tranform shadow to plain object and remove not usefull data from it
+ * Tranform value from map to plain object 
+ * and remove not usefull data from it
  */
 export const cleanShadow = (shadow: receivedShadow) => {
   const plainShadow = fromMapToPlainObject(shadow.state.reported);
