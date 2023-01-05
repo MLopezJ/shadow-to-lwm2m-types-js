@@ -48,7 +48,28 @@ npm test
 }
 ```
 
-### Mapping of names and ids
+## Expected output
+
+```json
+{
+  "3303:1.1": [
+    {
+      "5518": 1665149633,
+      "5601": 23.51,
+      "5602": 23.51,
+      "5603": -40,
+      "5604": 85,
+      "5700": 24.57,
+      "5701": "Celsius degrees"
+    }
+  ]
+}
+```
+
+## Expected process: Map names and ids
+
+Pair each object of the shadow with their equivalent id in LwM2M
+- [x] Done
 
 ```typescript
 export const Temperature = {
@@ -210,23 +231,7 @@ if ("errors" in maybeValidLwM2M) {
 const shadow = maybeValidLwM2M.value;
 ```
 
-## Expected output
 
-```json
-{
-  "3303:1.1": [
-    {
-      "5518": 1665149633,
-      "5601": 23.51,
-      "5602": 23.51,
-      "5603": -40,
-      "5604": 85,
-      "5700": 24.57,
-      "5701": "Celsius degrees"
-    }
-  ]
-}
-```
 
 ## Usage
 
