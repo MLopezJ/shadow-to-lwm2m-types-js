@@ -1,5 +1,8 @@
-export const FirmwareUpdate = {
-  "Firmware Update": "5",
+import type { lwM2MObject } from "./index";
+
+export const FirmwareUpdate: lwM2MObject = {
+  id: "5",
+  name: "Firmware Update",
   properties: {
     "Firmware Update Protocol Support": "8",
     "Firmware Update Delivery Method": "9",

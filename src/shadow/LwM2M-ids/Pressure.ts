@@ -1,5 +1,8 @@
-export const Pressure = {
-  Pressure: "3323",
+import type { lwM2MObject } from "./index";
+
+export const Pressure: lwM2MObject = {
+  id: "3323",
+  name: "Pressure",
   properties: {
     "Application Type": "5750",
     "Current Calibration": "5821",

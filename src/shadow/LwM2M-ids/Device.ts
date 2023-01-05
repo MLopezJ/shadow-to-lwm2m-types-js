@@ -1,5 +1,8 @@
-export const Device = {
-  Device: "3",
+import type { lwM2MObject } from "./index";
+
+export const Device: lwM2MObject = {
+  id: "3",
+  name: "Device",
   properties: {
     "Available Power Sources": "6",
     "Error Code": "11",

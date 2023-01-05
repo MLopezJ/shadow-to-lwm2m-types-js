@@ -1,5 +1,8 @@
-export const LwM2MServer = {
-  "LwM2M Server": "1",
+import type { lwM2MObject } from "./index";
+
+export const LwM2MServer: lwM2MObject = {
+  id: "1",
+  name: "LwM2M Server",
   properties: {
     "AltitAPN Linkude": "10",
     Binding: "7",

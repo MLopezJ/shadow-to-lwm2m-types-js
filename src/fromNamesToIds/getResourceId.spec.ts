@@ -10,6 +10,6 @@ describe("getResourceId", () => {
   it("should return undefined when name of the resource does not exist", () => {
     const value = "new object name";
     const expected = undefined;
-    expect(getResourceId(value)).toBe(expected);
+    expect(getResourceId(value as any)).toBe(expected);
   });
 });

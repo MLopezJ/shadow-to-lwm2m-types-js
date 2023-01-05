@@ -1,5 +1,8 @@
-export const Humidity = {
-  Humidity: "3304",
+import type { lwM2MObject } from "./index";
+
+export const Humidity: lwM2MObject = {
+  id: "3304",
+  name: "Humidity",
   properties: {
     "Application Type": "5750",
     "Fractional Timestamp": "6050",

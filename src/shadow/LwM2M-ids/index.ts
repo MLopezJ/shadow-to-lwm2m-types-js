@@ -9,6 +9,27 @@ import { Pressure } from "./Pressure";
 import { PushButton } from "./PushButton";
 import { Temperature } from "./Temperature";
 
+type props = Record<string, string>
+
+export type lwM2MObject = {
+  id: string, 
+  name:string,
+  properties: props
+}
+
+export interface LwM2MTypes {
+  ConnectivityMonitoring: lwM2MObject;
+  ECIDSignalMeasurementInformation: lwM2MObject;
+  Device: lwM2MObject;
+  FirmwareUpdate: lwM2MObject;
+  Humidity: lwM2MObject;
+  Location: lwM2MObject;
+  LwM2MServer: lwM2MObject;
+  Pressure: lwM2MObject;
+  PushButton: lwM2MObject;
+  Temperature: lwM2MObject;
+}
+
 /**
  * Map shadow's name values with LwM2M IDs Object and Properties
  */

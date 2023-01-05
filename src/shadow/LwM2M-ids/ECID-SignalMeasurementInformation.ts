@@ -1,5 +1,8 @@
-export const ECIDSignalMeasurementInformation = {
-  "ECID-Signal Measurement Information": "10256",
+import type { lwM2MObject } from "./index";
+
+export const ECIDSignalMeasurementInformation: lwM2MObject = {
+  id: "10256",
+  name: "ECID-Signal Measurement Information",
   properties: {
     physCellId: "0",
     ECGI: "1",

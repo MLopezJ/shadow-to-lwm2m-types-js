@@ -1,5 +1,8 @@
-export const Temperature = {
-  Temperature: "3303",
+import type { lwM2MObject } from "./index";
+
+export const Temperature: lwM2MObject = {
+  id: "3303",
+  name: "Temperature",
   properties: {
     "Application Type": "5750",
     "Fractional Timestamp": "6050",
