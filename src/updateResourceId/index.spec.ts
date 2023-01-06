@@ -1,5 +1,5 @@
 import { getURN } from "./index";
-//TODO: use node modeles on Jest
+//TODO: use node_modules on Jest
 describe("Update resource id", () => {
   it.each([
     ["3303", "3303:1.1"],
