@@ -38,7 +38,10 @@
         "@swc/jest"
       ]
     },
-    "testRegex": ".+\\.spec\\.ts$"
+    "testRegex": ".+\\.spec\\.ts$",
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!@nordicsemiconductor/)"
+  ]
   },
   "dependencies": {
     "@nordicsemiconductor/lwm2m-types": "^1.0.1"
