@@ -39,5 +39,8 @@
       ]
     },
     "testRegex": ".+\\.spec\\.ts$"
+  },
+  "dependencies": {
+    "@nordicsemiconductor/lwm2m-types": "^1.0.1"
   }
 }

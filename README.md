@@ -164,7 +164,7 @@ export const Temperature = {
 ```
 
 ## Expected process: Update id
-- [ ] Done
+- [x] Done
 
 ```json
 {
