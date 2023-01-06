@@ -41,9 +41,10 @@
     "testRegex": ".+\\.spec\\.ts$",
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/(?!@nordicsemiconductor/)"
-  ]
+    ]
   },
   "dependencies": {
-    "@nordicsemiconductor/lwm2m-types": "^1.0.1"
+    "@nordicsemiconductor/lwm2m-types": "^1.0.1",
+    "schema-casting": "^1.4.0"
   }
 }
