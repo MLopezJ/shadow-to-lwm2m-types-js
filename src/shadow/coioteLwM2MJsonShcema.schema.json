@@ -1,0 +1,430 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "$id": "https://github.com/NordicSemiconductor/lwm2m-types-js/blob/saga/LwM2MDocument.schema.json",
+  "title": "LwM2M JSON Schema",
+  "description": "JSON schema for expressing LwM2M resources as JSON",
+  "properties": {
+    "3303:1.1": {
+      "type": "array",
+      "minItems": 1,
+      "title": "Temperature",
+      "description": "This IPSO object should be used with a temperature sensor to report a temperature measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range that can be measured by the temperature sensor. An example measurement unit is degrees Celsius. LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+      "items": {
+        "type": "object",
+        "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/3303.xml",
+        "title": "Temperature",
+        "description": "This IPSO object should be used with a temperature sensor to report a temperature measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range that can be measured by the temperature sensor. An example measurement unit is degrees Celsius. LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+        "properties": {
+          "5518": {
+            "type": "integer",
+            "minimum": 1000000000,
+            "title": "Timestamp",
+            "description": "The timestamp of when the measurement was performed. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+          },
+          "5601": {
+            "type": "number",
+            "title": "Min Measured Value",
+            "description": "The minimum value measured by the sensor since power ON or reset."
+          },
+          "5602": {
+            "type": "number",
+            "title": "Max Measured Value",
+            "description": "The maximum value measured by the sensor since power ON or reset."
+          },
+          "5603": {
+            "type": "number",
+            "title": "Min Range Value",
+            "description": "The minimum value that can be measured by the sensor."
+          },
+          "5604": {
+            "type": "number",
+            "title": "Max Range Value",
+            "description": "The maximum value that can be measured by the sensor."
+          },
+          "5700": {
+            "type": "number",
+            "title": "Sensor Value",
+            "description": "Last or Current Measured Value from the Sensor."
+          },
+          "5701": {
+            "type": "string",
+            "title": "Sensor Units",
+            "description": "Measurement Units Definition."
+          },
+          "5750": {
+            "type": "string",
+            "title": "Application Type",
+            "description": "The application type of the sensor or actuator as a string depending on the use case."
+          },
+          "6042": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "title": "Measurement Quality Indicator",
+            "description": "Measurement quality indicator reported by a smart sensor. 0: UNCHECKED No quality checks were done because they do not exist or can not be applied. 1: REJECTED WITH CERTAINTY The measured value is invalid. 2: REJECTED WITH PROBABILITY The measured value is likely invalid. 3: ACCEPTED BUT SUSPICIOUS The measured value is likely OK. 4: ACCEPTED The measured value is OK. 5-15: Reserved for future extensions. 16-23: Vendor specific measurement quality."
+          },
+          "6049": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "title": "Measurement Quality Level",
+            "description": "Measurement quality level reported by a smart sensor. Quality level 100 means that the measurement has fully passed quality check algorithms. Smaller quality levels mean that quality has decreased and the measurement has only partially passed quality check algorithms. The smaller the quality level, the more caution should be used by the application when using the measurement. When the quality level is 0 it means that the measurement should certainly be rejected."
+          },
+          "6050": {
+            "type": "number",
+            "title": "Fractional Timestamp",
+            "description": "Fractional part of the timestamp when sub-second precision is used (e.g., 0.23 for 230 ms). Units: s."
+          }
+        },
+        "required": ["5700"]
+      }
+    },
+    "3323:1.1": {
+      "type": "array",
+      "minItems": 1,
+      "title": "Pressure",
+      "description": "This IPSO object should be used to report pressure measurements. It also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor. An example measurement unit is pascals.\r\n         LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+      "items": {
+        "type": "object",
+        "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/3323.xml",
+        "title": "Pressure",
+        "description": "This IPSO object should be used to report pressure measurements. It also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor. An example measurement unit is pascals.\r\n         LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+        "properties": {
+          "5518": {
+            "type": "integer",
+            "minimum": 1000000000,
+            "title": "Timestamp",
+            "description": "The timestamp of when the measurement was performed. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+          },
+          "5601": {
+            "type": "number",
+            "title": "Min Measured Value",
+            "description": "The minimum value measured by the sensor since power ON or reset."
+          },
+          "5602": {
+            "type": "number",
+            "title": "Max Measured Value",
+            "description": "The maximum value measured by the sensor since power ON or reset."
+          },
+          "5603": {
+            "type": "number",
+            "title": "Min Range Value",
+            "description": "The minimum value that can be measured by the sensor."
+          },
+          "5604": {
+            "type": "number",
+            "title": "Max Range Value",
+            "description": "The maximum value that can be measured by the sensor."
+          },
+          "5700": {
+            "type": "number",
+            "title": "Sensor Value",
+            "description": "Last or Current Measured Value from the Sensor."
+          },
+          "5701": {
+            "type": "string",
+            "title": "Sensor Units",
+            "description": "Measurement Units Definition."
+          },
+          "5750": {
+            "type": "string",
+            "title": "Application Type",
+            "description": "The application type of the sensor or actuator as a string depending on the use case."
+          },
+          "5821": {
+            "type": "number",
+            "title": "Current Calibration",
+            "description": "Read or Write the current calibration coefficient."
+          },
+          "6042": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "title": "Measurement Quality Indicator",
+            "description": "Measurement quality indicator reported by a smart sensor. 0: UNCHECKED No quality checks were done because they do not exist or can not be applied. 1: REJECTED WITH CERTAINTY The measured value is invalid. 2: REJECTED WITH PROBABILITY The measured value is likely invalid. 3: ACCEPTED BUT SUSPICIOUS The measured value is likely OK. 4: ACCEPTED The measured value is OK. 5-15: Reserved for future extensions. 16-23: Vendor specific measurement quality."
+          },
+          "6049": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "title": "Measurement Quality Level",
+            "description": "Measurement quality level reported by a smart sensor. Quality level 100 means that the measurement has fully passed quality check algorithms. Smaller quality levels mean that quality has decreased and the measurement has only partially passed quality check algorithms. The smaller the quality level, the more caution should be used by the application when using the measurement. When the quality level is 0 it means that the measurement should certainly be rejected."
+          },
+          "6050": {
+            "type": "number",
+            "title": "Fractional Timestamp",
+            "description": "Fractional part of the timestamp when sub-second precision is used (e.g., 0.23 for 230 ms). Units: s."
+          }
+        },
+        "required": ["5700"]
+      }
+    },
+    "3347:1.1": {
+      "type": "array",
+      "minItems": 1,
+      "title": "Push button",
+      "description": "This IPSO object is used to report the state of a momentary action push button control and to count the number of times the control has been operated since the last observation.\r\n         LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+      "items": {
+        "type": "object",
+        "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/3347.xml",
+        "title": "Push button",
+        "description": "This IPSO object is used to report the state of a momentary action push button control and to count the number of times the control has been operated since the last observation.\r\n         LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+        "properties": {
+          "5500": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Digital Input State",
+            "description": "The current state of a digital input."
+          },
+          "5501": {
+            "type": "integer",
+            "title": "Digital Input Counter",
+            "description": "The cumulative value of active state detected."
+          },
+          "5518": {
+            "type": "integer",
+            "minimum": 1000000000,
+            "title": "Timestamp",
+            "description": "The timestamp of when the measurement was performed. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+          },
+          "5750": {
+            "type": "string",
+            "title": "Application Type",
+            "description": "The application type of the sensor or actuator as a string depending on the use case."
+          },
+          "6050": {
+            "type": "number",
+            "title": "Fractional Timestamp",
+            "description": "Fractional part of the timestamp when sub-second precision is used (e.g., 0.23 for 230 ms). Units: s."
+          }
+        },
+        "required": ["5500"]
+      }
+    },
+    "10256": {
+      "type": "array",
+      "minItems": 1,
+      "title": "ECID-Signal Measurement Information",
+      "description": "This LWM2M Object provides ECID signal measurements of a device. LWM2MVersion: 1.0 ObjectVersion: 1.0 MultipleInstances: true Mandatory: false",
+      "items": {
+        "type": "object",
+        "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/10256.xml",
+        "title": "ECID-Signal Measurement Information",
+        "description": "This LWM2M Object provides ECID signal measurements of a device. LWM2MVersion: 1.0 ObjectVersion: 1.0 MultipleInstances: true Mandatory: false",
+        "properties": {
+          "0": {
+            "type": "integer",
+            "title": "physCellId",
+            "description": "This field specifies the physical cell identity of the measured cell. Units: \r\n        ."
+          },
+          "1": {
+            "type": "integer",
+            "title": "ECGI",
+            "description": "This field specifies cell global ID of the measured cell. The target device shall provide this field if it was able to determine the ECGI of the measured cell at the time of measurement. Units: \r\n        ."
+          },
+          "2": {
+            "type": "integer",
+            "title": "arfcnEUTRA",
+            "description": "This field specifies the ARFCN of the measured E-UTRA carrier frequency. Units: \r\n        ."
+          },
+          "3": {
+            "type": "integer",
+            "title": "rsrp-Result ",
+            "description": "This field specifies the reference signal received power (RSRP) measurement. Units: \r\n        ."
+          },
+          "4": {
+            "type": "integer",
+            "title": "rsrq-Result",
+            "description": "This field specifies the reference signal received quality (RSRQ) measurement. Units: \r\n        ."
+          },
+          "5": {
+            "type": "integer",
+            "title": "ue-RxTxTimeDiff",
+            "description": "This field specifies the UE Rx-Tx time difference measurement. Units: \r\n        ."
+          }
+        },
+        "required": ["0", "2", "3"]
+      }
+    },
+    "5:1.1@1.1": {
+      "type": "object",
+      "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/5.xml",
+      "title": "Firmware Update",
+      "description": "This LwM2M Object enables management of firmware which is to be updated. This Object includes installing a firmware package, updating firmware, and performing actions after updating firmware. The firmware update MAY require to reboot the device; it will depend on a number of factors, such as the operating system architecture and the extent of the updated software.\r\nThe envisioned functionality is to allow a LwM2M Client to connect to any LwM2M Server to obtain a firmware image using the object and resource structure defined in this section experiencing communication security protection using TLS/DTLS. There are, however, other design decisions that need to be taken into account to allow a manufacturer of a device to securely install firmware on a device. Examples for such design decisions are how to manage the firmware update repository at the server side (which may include user interface considerations), the techniques to provide additional application layer security protection of the firmware image, how many versions of firmware images to store on the device, and how to execute the firmware update process considering the hardware specific details of a given IoT hardware product. These aspects are considered to be outside the scope of this version of the specification.\r\nA LwM2M Server may also instruct a LwM2M Client to fetch a firmware image from a dedicated server (instead of pushing firmware images to the LwM2M Client). The Package URI resource is contained in the Firmware object and can be used for this purpose.\r\nA LwM2M Client MUST support block-wise transfer [CoAP_Blockwise] if it implements the Firmware Update object.\r\nA LwM2M Server MUST support block-wise transfer. Other protocols, such as HTTP/HTTPs, MAY also be used for downloading firmware updates (via the Package URI resource). For constrained devices it is, however, RECOMMENDED to use CoAP for firmware downloads to avoid the need for additional protocol implementations. LWM2MVersion: 1.1 ObjectVersion: 1.1 MultipleInstances: false Mandatory: false",
+      "properties": {
+        "0": {
+          "type": "string",
+          "title": "Package",
+          "description": "Firmware package"
+        },
+        "1": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255,
+          "title": "Package URI",
+          "description": "URI from where the device can download the firmware package by an alternative mechanism. As soon the device has received the Package URI it performs the download at the next practical opportunity. \r\nThe URI format is defined in RFC 3986. For example, coaps://example.org/firmware is a syntactically valid URI. The URI scheme determines the protocol to be used. For CoAP this endpoint MAY be a LwM2M Server but does not necessarily need to be. A CoAP server implementing block-wise transfer is sufficient as a server hosting a firmware repository and the expectation is that this server merely serves as a separate file server making firmware images available to LwM2M Clients."
+        },
+        "3": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "title": "State",
+          "description": "Indicates current state with respect to this firmware update. This value is set by the LwM2M Client.\r\n0: Idle (before downloading or after successful updating)\r\n1: Downloading (The data sequence is on the way)\r\n2: Downloaded\r\n3: Updating\r\nIf writing the firmware package to Package Resource has completed, or, if the device has downloaded the firmware package from the Package URI the state changes to Downloaded.\r\nWriting an empty string to Package URI Resource or setting the Package Resource to NULL (‘\\0’), resets the Firmware Update State Machine: the State Resource value is set to Idle and the Update Result Resource value is set to 0.\r\nThe device should remove the downloaded firmware image when the state is reset to Idle.\r\nWhen in Downloaded state, and the executable Resource Update is triggered, the state changes to Updating if the update starts immediately. For devices that support a user interface and the deferred update functionality, the user may be allowed to defer the firmware update to a later time. In this case, the state stays in Downloaded state and the Update Result is set to 11. Once a user accepted the firmware update, the state changes to Updating.\r\nWhen the user deferred the update, the device will continue operations normally until the user approves the firmware update or an automatic update starts. It will not block any operation on the device.\r\nIf the Update Resource failed, the state may return to either Downloaded or Idle depending on the underlying reason of update failure, e.g. Integrity Check Failure results in the client moving to the Idle state.\r\nIf performing the Update or Cancel operation was successful, the state changes to Idle. \r\nThe firmware update state machine is illustrated in the respective LwM2M specification."
+        },
+        "5": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11,
+          "title": "Update Result",
+          "description": "Contains the result of downloading or updating the firmware\r\n0: Initial value. Once the updating process is initiated (Download /Update), this Resource MUST be reset to Initial value.\r\n1: Firmware updated successfully.\r\n2: Not enough flash memory for the new firmware package.\r\n3: Out of RAM during downloading process.\r\n4: Connection lost during downloading process.\r\n5: Integrity check failure for new downloaded package.\r\n6: Unsupported package type.\r\n7: Invalid URI.\r\n8: Firmware update failed.\r\n9: Unsupported protocol. A LwM2M client indicates the failure to retrieve the firmware image using the URI provided in the Package URI resource by writing the value 9 to the /5/0/5 (Update Result resource) when the URI contained a URI scheme unsupported by the client. Consequently, the LwM2M Client is unable to retrieve the firmware image using the URI provided by the LwM2M Server in the Package URI when it refers to an unsupported protocol.\r\n10: Firmware update cancelled. A Cancel operation has been executed successfully.\r\n11: Firmware update deferred."
+        },
+        "6": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255,
+          "title": "PkgName",
+          "description": "Name of the Firmware Package"
+        },
+        "7": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255,
+          "title": "PkgVersion",
+          "description": "Version of the Firmware package"
+        },
+        "8": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 0, "maximum": 5 },
+          "title": "Firmware Update Protocol Support",
+          "description": "This resource indicates what protocols the LwM2M Client implements to retrieve firmware images. The LwM2M server uses this information to decide what URI to include in the Package URI. A LwM2M Server MUST NOT include a URI in the Package URI object that uses a protocol that is unsupported by the LwM2M client.\r\nFor example, if a LwM2M client indicates that it supports CoAP and CoAPS then a LwM2M Server must not provide an HTTP URI in the Packet URI.\r\nThe following values are defined by this version of the specification:\r\n0: CoAP (as defined in RFC 7252) with the additional support for block-wise transfer. CoAP is the default setting.\r\n1: CoAPS (as defined in RFC 7252) with the additional support for block-wise transfer\r\n2: HTTP 1.1 (as defined in RFC 7230)\r\n3: HTTPS 1.1 (as defined in RFC 7230)\r\n4: CoAP over TCP (as defined in RFC 8323)\r\n5: CoAP over TLS (as defined in RFC 8323)\r\nAdditional values MAY be defined in the future. Any value not understood by the LwM2M Server MUST be ignored."
+        },
+        "9": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "title": "Firmware Update Delivery Method",
+          "description": "The LwM2M Client uses this resource to indicate its support for transferring firmware images to the client either via the Package Resource (=push) or via the Package URI Resource (=pull) mechanism.\r\n0: Pull only\r\n1: Push only\r\n2: Both. In this case the LwM2M Server MAY choose the preferred mechanism for conveying the firmware image to the LwM2M Client."
+        },
+        "11": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "title": "Severity",
+          "description": "Severity of the firmware image.\r\n0: Critical\r\n1: Mandatory\r\n2: Optional\r\nThis information is useful when the device provides option for the deferred update. Default value is 1."
+        },
+        "12": {
+          "type": "integer",
+          "minimum": 1000000000,
+          "title": "Last State Change Time",
+          "description": "This resource stores the time when the State resource is changed. Device updates this resource before making any change to the State. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+        },
+        "13": {
+          "type": "integer",
+          "title": "Maximum Defer Period",
+          "description": "The number of seconds a user can defer the software update.\r\nWhen this time period is over, the device will not prompt the user for update and install it automatically.\r\nIf the value is 0, a deferred update is not allowed. Units: s."
+        }
+      },
+      "required": ["0", "1", "3", "5", "9"]
+    },
+    "4:1.3@1.1": {
+      "type": "object",
+      "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/4.xml",
+      "title": "Connectivity Monitoring",
+      "description": "This LwM2M Object enables monitoring of parameters related to network connectivity.\r\nIn this general connectivity Object, the Resources are limited to the most general cases common to most network bearers. It is recommended to read the description, which refers to relevant standard development organizations (e.g. 3GPP, IEEE).\r\nThe goal of the Connectivity Monitoring Object is to carry information reflecting the more up to date values of the current connection for monitoring purposes. Resources such as Link Quality, Radio Signal Strength, Cell ID are retrieved during connected mode at least for cellular networks. LWM2MVersion: 1.1 ObjectVersion: 1.3 MultipleInstances: false Mandatory: false",
+      "properties": {
+        "0": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 50,
+          "title": "Network Bearer",
+          "description": "Indicates the network bearer used for the current LwM2M communication session from the network bearer list below. \r\nThe number range is split into three categories:\r\n0 - 20 are Cellular Bearers \r\n21 - 40 are Wireless Bearers \r\n41 - 50 are Wireline Bearers\r\nMore specifically: \r\n0: GSM cellular network\r\n1: TD-SCDMA cellular network\r\n2: WCDMA cellular network\r\n3: CDMA2000 cellular network\r\n4: WiMAX cellular network\r\n5: LTE-TDD cellular network\r\n6: LTE-FDD cellular network\r\n7: NB-IoT\r\n8: 5G-NR TDD\r\n9: 5G-NR FDD\r\n10 - 20: Reserved for other types of cellular network\r\n21: WLAN network\r\n22: Bluetooth network\r\n23: IEEE 802.15.4 network\r\n24 - 40: Reserved for other types of local wireless network\r\n41: Ethernet\r\n42: DSL\r\n43: PLC\r\n44 - 50: reserved for other types of wireline networks."
+        },
+        "1": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 0, "maximum": 50 },
+          "title": "Available Network Bearer",
+          "description": "Indicates a list of current available network bearer. Each Resource Instance has a value from the network bearer list."
+        },
+        "2": {
+          "type": "integer",
+          "title": "Radio Signal Strength",
+          "description": "Indicates the average value of the received signal strength indication used in the\r\ncurrent network bearer (as indicated by Resource 0 of this Object). The value is expressed in dBm. For the following network bearers the signal strength parameters indicated below are represented by this resource:\r\nGSM:    RSSI\r\nUMTS:   RSCP\r\nLTE:    RSRP\r\nNB-IoT: NRSRP\r\nFor more details on Network Measurement Report, refer to the appropriate Cellular or Wireless Network standards, (e.g. for LTE Cellular Network\r\nrefer to 3GPP TS 36.133 specification)."
+        },
+        "3": {
+          "type": "integer",
+          "title": "Link Quality",
+          "description": "This contains received link quality  e.g. LQI for IEEE 802.15.4 (range 0...255), RxQual Downlink for GSM (range 0...7, refer to [3GPP 44.018] for more details on Network Measurement Report encoding), RSRQ for LTE, (refer to [3GPP 36.214]), NRSRQ for NB-IoT (refer to [3GPP 36.214])."
+        },
+        "4": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "title": "IP Addresses",
+          "description": "The IP addresses assigned to the connectivity interface. (e.g. IPv4, IPv6, etc.)"
+        },
+        "5": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "title": "Router IP Addresses",
+          "description": "The IP address of the next-hop IP router, on each of the interfaces specified in resource 4 (IP Addresses).\r\nNote: This IP Address doesn't indicate the Server IP address."
+        },
+        "6": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "title": "Link Utilization",
+          "description": "The percentage indicating the average utilization of the link to the next-hop IP router. Units: /100."
+        },
+        "7": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "title": "APN",
+          "description": "Access Point Name in case Network Bearer Resource is a Cellular Network."
+        },
+        "8": {
+          "type": "integer",
+          "title": "Cell ID",
+          "description": "Serving Cell ID in case Network Bearer Resource is a Cellular Network.\r\nAs specified in TS [3GPP 23.003] and in [3GPP. 24.008]. Range (0...65535) in GSM/EDGE\r\nUTRAN Cell ID has a length of 28 bits.\r\nCell Identity in WCDMA/TD-SCDMA. Range: (0...268435455).\r\nLTE Cell ID has a length of 28 bits.\r\nParameter definitions in [3GPP 25.331]."
+        },
+        "9": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999,
+          "title": "SMNC",
+          "description": "Serving Mobile Network Code. This is applicable when the Network Bearer Resource value is referring to a cellular network.\r\nAs specified in TS [3GPP 23.003]."
+        },
+        "10": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999,
+          "title": "SMCC",
+          "description": "Serving Mobile Country Code. This is applicable when the Network Bearer Resource value is referring to a cellular network.\r\nAs specified in TS [3GPP 23.003]."
+        },
+        "11": {
+          "type": "integer",
+          "title": "SignalSNR",
+          "description": "SINR: Signal to Interference plus Noise Ratio SINR is the ratio of the strength of the received signal to the strength of the received interference signal (noise and interference). Units: dB."
+        },
+        "12": {
+          "type": "integer",
+          "title": "LAC",
+          "description": "Location Area Code in case Network Bearer Resource is a Cellular Network. As specified in TS [3GPP 23.003] and in [3GPP. 24.008]"
+        },
+        "13": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "title": "Coverage Enhancement Level",
+          "description": "Indicates the Coverage Enhancement Level of the UE in the serving cell. The Coverage Enhancement levels are defined and specified in 3GPP TS 36.331 and 36.213.\r\n\t\t0: No Coverage Enhancement in the serving cell\r\n\t\t1: Coverage Enhancement level 0\r\n\t\t2: Coverage Enhancement level 1\r\n\t\t3: Coverage Enhancement level 2\r\n\t\t4: Coverage Enhancement level 3"
+        }
+      },
+      "required": ["0", "1", "2", "4"]
+    }
+  }
+}
