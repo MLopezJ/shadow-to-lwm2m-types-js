@@ -1,4 +1,5 @@
 import sc from "schema-casting";
+import { cast } from "./cast";
 
 /**
  * Draft schema of 3303
@@ -20,3 +21,5 @@ const input = {
 const output = sc(schema, input);
 // { '5518': 1665149633 }
 console.log(output);
+
+console.log(cast(schema, input))
