@@ -80,6 +80,81 @@
         "required": ["5700"]
       }
     },
+    "3304:1.1": {
+      "type": "array",
+      "minItems": 1,
+      "title": "Humidity",
+      "description": "This IPSO object should be used with a humidity sensor to report a humidity measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range that can be measured by the humidity sensor. An example measurement unit is relative humidity as a percentage. LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+      "items": {
+        "type": "object",
+        "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/3304.xml",
+        "title": "Humidity",
+        "description": "This IPSO object should be used with a humidity sensor to report a humidity measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range that can be measured by the humidity sensor. An example measurement unit is relative humidity as a percentage. LWM2MVersion: 1.0 ObjectVersion: 1.1 MultipleInstances: true Mandatory: false",
+        "properties": {
+          "5518": {
+            "type": "integer",
+            "minimum": 1000000000,
+            "title": "Timestamp",
+            "description": "The timestamp of when the measurement was performed. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+          },
+          "5601": {
+            "type": "number",
+            "title": "Min Measured Value",
+            "description": "The minimum value measured by the sensor since power ON or reset."
+          },
+          "5602": {
+            "type": "number",
+            "title": "Max Measured Value",
+            "description": "The maximum value measured by the sensor since power ON or reset."
+          },
+          "5603": {
+            "type": "number",
+            "title": "Min Range Value",
+            "description": "The minimum value that can be measured by the sensor."
+          },
+          "5604": {
+            "type": "number",
+            "title": "Max Range Value",
+            "description": "The maximum value that can be measured by the sensor."
+          },
+          "5700": {
+            "type": "number",
+            "title": "Sensor Value",
+            "description": "Last or Current Measured Value from the Sensor."
+          },
+          "5701": {
+            "type": "string",
+            "title": "Sensor Units",
+            "description": "Measurement Units Definition."
+          },
+          "5750": {
+            "type": "string",
+            "title": "Application Type",
+            "description": "The application type of the sensor or actuator as a string depending on the use case."
+          },
+          "6042": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "title": "Measurement Quality Indicator",
+            "description": "Measurement quality indicator reported by a smart sensor. 0: UNCHECKED No quality checks were done because they do not exist or can not be applied. 1: REJECTED WITH CERTAINTY The measured value is invalid. 2: REJECTED WITH PROBABILITY The measured value is likely invalid. 3: ACCEPTED BUT SUSPICIOUS The measured value is likely OK. 4: ACCEPTED The measured value is OK. 5-15: Reserved for future extensions. 16-23: Vendor specific measurement quality."
+          },
+          "6049": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "title": "Measurement Quality Level",
+            "description": "Measurement quality level reported by a smart sensor. Quality level 100 means that the measurement has fully passed quality check algorithms. Smaller quality levels mean that quality has decreased and the measurement has only partially passed quality check algorithms. The smaller the quality level, the more caution should be used by the application when using the measurement. When the quality level is 0 it means that the measurement should certainly be rejected."
+          },
+          "6050": {
+            "type": "number",
+            "title": "Fractional Timestamp",
+            "description": "Fractional part of the timestamp when sub-second precision is used (e.g., 0.23 for 230 ms). Units: s."
+          }
+        },
+        "required": ["5700"]
+      }
+    },
     "3323:1.1": {
       "type": "array",
       "minItems": 1,
@@ -425,6 +500,339 @@
         }
       },
       "required": ["0", "1", "2", "4"]
+    },
+    "3:1.2@1.1": {
+      "type": "object",
+      "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/3.xml",
+      "title": "Device",
+      "description": "This LwM2M Object provides a range of device related information which can be queried by the LwM2M Server, and a device reboot and factory reset function. LWM2MVersion: 1.1 ObjectVersion: 1.2 MultipleInstances: false Mandatory: true",
+      "properties": {
+        "0": {
+          "type": "string",
+          "title": "Manufacturer",
+          "description": "Human readable manufacturer name"
+        },
+        "1": {
+          "type": "string",
+          "title": "Model Number",
+          "description": "A model identifier (manufacturer specified string)"
+        },
+        "2": {
+          "type": "string",
+          "title": "Serial Number",
+          "description": "Serial Number"
+        },
+        "3": {
+          "type": "string",
+          "title": "Firmware Version",
+          "description": "Current firmware version of the Device.The Firmware Management function could rely on this resource."
+        },
+        "6": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 0, "maximum": 7 },
+          "title": "Available Power Sources",
+          "description": "0: DC power\r\n1: Internal Battery\r\n2: External Battery\r\n3: Fuel Cell\r\n4: Power over Ethernet\r\n5: USB\r\n6: AC (Mains) power\r\n7: Solar\r\nThe same Resource Instance ID MUST be used to associate a given Power Source (Resource ID:6) with its Present Voltage (Resource ID:7) and its Present Current (Resource ID:8)"
+        },
+        "7": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer" },
+          "title": "Power Source Voltage",
+          "description": "Present voltage for each Available Power Sources Resource Instance. The unit used for this resource is in mV."
+        },
+        "8": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer" },
+          "title": "Power Source Current",
+          "description": "Present current for each Available Power Source. The unit used for this resource is in mA."
+        },
+        "9": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "title": "Battery Level",
+          "description": "Contains the current battery level as a percentage (with a range from 0 to 100). This value is only valid for the Device internal Battery if present (one Available Power Sources Resource Instance is 1). Units: /100."
+        },
+        "10": {
+          "type": "integer",
+          "title": "Memory Free",
+          "description": "Estimated current available amount of storage space which can store data and software in the LwM2M Device (expressed in kilobytes). Note: 1 kilobyte corresponds to 1000 bytes."
+        },
+        "11": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 0, "maximum": 32 },
+          "title": "Error Code",
+          "description": "0=No error\r\n1=Low battery power\r\n2=External power supply off\r\n3=GPS module failure\r\n4=Low received signal strength\r\n5=Out of memory\r\n6=SMS failure\r\n7=IP connectivity failure\r\n8=Peripheral malfunction\r\n9..15=Reserved for future use\r\n16..32=Device specific error codes\r\n\r\nWhen the single Device Object Instance is initiated, there is only one error code Resource Instance whose value is equal to 0 that means no error. When the first error happens, the LwM2M Client changes error code Resource Instance to any non-zero value to indicate the error type. When any other error happens, a new error code Resource Instance is created. When an error associated with a Resource Instance is no longer present, that Resource Instance is deleted. When the single existing error is no longer present, the LwM2M Client returns to the original no error state where Instance 0 has value 0.\r\nThis error code Resource MAY be observed by the LwM2M Server. How to deal with LwM2M Client’s error report depends on the policy of the LwM2M Server. Error codes in between 16 and 32 are specific to the Device and may have different meanings among implementations."
+        },
+        "13": {
+          "type": "integer",
+          "minimum": 1000000000,
+          "title": "Current Time",
+          "description": "Current UNIX time of the LwM2M Client.\r\nThe LwM2M Client should be responsible to increase this time value as every second elapses.\r\nThe LwM2M Server is able to write this Resource to make the LwM2M Client synchronized with the LwM2M Server. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+        },
+        "14": {
+          "type": "string",
+          "title": "UTC Offset",
+          "description": "Indicates the UTC offset currently in effect for this LwM2M Device. UTC+X [ISO 8601]."
+        },
+        "15": {
+          "type": "string",
+          "title": "Timezone",
+          "description": "Indicates in which time zone the LwM2M Device is located, in IANA Timezone (TZ) database format."
+        },
+        "16": {
+          "type": "string",
+          "title": "Supported Binding and Modes",
+          "description": "Indicates which bindings and modes are supported in the LwM2M Client. The possible values are those listed in the LwM2M Core Specification."
+        },
+        "17": {
+          "type": "string",
+          "title": "Device Type",
+          "description": "Type of the device (manufacturer specified string: e.g. smart meters / dev Class / ...)"
+        },
+        "18": {
+          "type": "string",
+          "title": "Hardware Version",
+          "description": "Current hardware version of the device"
+        },
+        "19": {
+          "type": "string",
+          "title": "Software Version",
+          "description": "Current software version of the device (manufacturer specified string). On elaborated LwM2M device, SW could be split in 2 parts: a firmware one and a higher level software on top.\r\nBoth pieces of Software are together managed by LwM2M Firmware Update Object (Object ID 5)"
+        },
+        "20": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6,
+          "title": "Battery Status",
+          "description": "This value is only valid for the Device Internal Battery if present (one Available Power Sources Resource Instance value is 1).\r\nBattery\r\nStatus\tMeaning\tDescription\r\n0\tNormal\tThe battery is operating normally and not on power.\r\n1\tCharging\tThe battery is currently charging.\r\n2\tCharge Complete\tThe battery is fully charged and still on power.\r\n3\tDamaged\tThe battery has some problem.\r\n4\tLow Battery\tThe battery is low on charge.\r\n5\tNot Installed\tThe battery is not installed.\r\n6\tUnknown\tThe battery information is not available."
+        },
+        "21": {
+          "type": "integer",
+          "title": "Memory Total",
+          "description": "Total amount of storage space which can store data and software in the LwM2M Device (expressed in kilobytes).  Note: 1 kilobyte corresponds to 1000 bytes."
+        },
+        "22": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^dd:dd$" },
+          "title": "ExtDevInfo",
+          "description": "Reference to external \"Device\" object instance containing information. For example, such an external device can be a Host Device, which is a device into which the Device containing the LwM2M client is embedded. This Resource may be used to retrieve information about the Host Device."
+        }
+      },
+      "required": ["11", "16"]
+    },
+    "6": {
+      "type": "object",
+      "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/6.xml",
+      "title": "Location",
+      "description": "This LwM2M Object provides a range of location telemetry related information which can be queried by the LwM2M Server. LWM2MVersion: 1.0 ObjectVersion: 1.0 MultipleInstances: false Mandatory: false",
+      "properties": {
+        "0": {
+          "type": "number",
+          "title": "Latitude",
+          "description": "The decimal notation of latitude, e.g. -43.5723 [World Geodetic System 1984]. Units: lat."
+        },
+        "1": {
+          "type": "number",
+          "title": "Longitude",
+          "description": "The decimal notation of longitude, e.g. 153.21760 [World Geodetic System 1984]. Units: lon."
+        },
+        "2": {
+          "type": "number",
+          "title": "Altitude",
+          "description": "The decimal notation of altitude in meters above sea level. Units: m."
+        },
+        "3": {
+          "type": "number",
+          "title": "Radius",
+          "description": "The value in this resource indicates the radius of a circular area in meters. The circular area is used to describe uncertainty about a point for coordinates in a two-dimensional coordinate reference systems (CRS). The center point of a circular area is specified by using the Latitude and the Longitude Resources. Units: m."
+        },
+        "4": {
+          "type": "string",
+          "title": "Velocity",
+          "description": "The velocity of the LwM2M Client, as defined in [3GPP-TS_23.032]."
+        },
+        "5": {
+          "type": "integer",
+          "minimum": 1000000000,
+          "title": "Timestamp",
+          "description": "The timestamp of when the location measurement was performed. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+        },
+        "6": {
+          "type": "number",
+          "title": "Speed",
+          "description": "Speed is the time rate of change in position of a LwM2M Client without regard for direction: the scalar component of velocity. Units: m/s."
+        }
+      },
+      "required": ["0", "1", "5"]
+    },
+    "1:1.2@1.2": {
+      "type": "array",
+      "minItems": 1,
+      "title": "LwM2M Server",
+      "description": "This LwM2M Objects provides the data related to a LwM2M Server. A Bootstrap-Server has no such an Object Instance associated to it. LWM2MVersion: 1.2 ObjectVersion: 1.2 MultipleInstances: true Mandatory: true",
+      "items": {
+        "type": "object",
+        "$id": "https://github.com/OpenMobileAlliance/lwm2m-registry/raw/prod/1.xml",
+        "title": "LwM2M Server",
+        "description": "This LwM2M Objects provides the data related to a LwM2M Server. A Bootstrap-Server has no such an Object Instance associated to it. LWM2MVersion: 1.2 ObjectVersion: 1.2 MultipleInstances: true Mandatory: true",
+        "properties": {
+          "0": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65534,
+            "title": "Short Server ID",
+            "description": "Used as link to associate server Object Instance."
+          },
+          "1": {
+            "type": "integer",
+            "title": "Lifetime",
+            "description": "Specify the lifetime of the registration in seconds (see Client Registration Interface). If the value is set to 0, the lifetime is infinite. Units: s."
+          },
+          "2": {
+            "type": "integer",
+            "title": "Default Minimum Period",
+            "description": "The default value the LwM2M Client should use for the Minimum Period of an Observation in the absence of this parameter being included in an Observation.\r\nIf this Resource doesn’t exist, the default value is 0. Units: s."
+          },
+          "3": {
+            "type": "integer",
+            "title": "Default Maximum Period",
+            "description": "The default value the LwM2M Client should use for the Maximum Period of an Observation in the absence of this parameter being included in an Observation. Units: s."
+          },
+          "5": {
+            "type": "integer",
+            "title": "Disable Timeout",
+            "description": "A period to disable the Server. After this period, the LwM2M Client MUST perform registration process to the Server. If this Resource is not set, a default timeout value is 86400 (1 day). Units: s."
+          },
+          "6": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Notification Storing When Disabled or Offline",
+            "description": "If true, the LwM2M Client stores \"Notify\" operations to the LwM2M Server while the LwM2M Server account is disabled or the LwM2M Client is offline. After the LwM2M Server account is enabled or the LwM2M Client is online, the LwM2M Client reports the stored \"Notify\" operations to the Server.\r\nIf false, the LwM2M Client discards all the \"Notify\" operations or temporarily disables the Observe function while the LwM2M Server is disabled or the LwM2M Client is offline.\r\nThe default value is true.\r\nThe maximum number of storing Notifications per Server is up to the implementation."
+          },
+          "7": {
+            "type": "string",
+            "title": "Binding",
+            "description": "The possible values are those listed in the LwM2M Core Specification. This Resource defines the transport binding configured for the LwM2M Client.\r\nIf the LwM2M Client supports the binding specified in this Resource, the LwM2M Client MUST use that transport for the Current Binding Mode."
+          },
+          "10": {
+            "type": "string",
+            "pattern": "^dd:dd$",
+            "title": "APN Link",
+            "description": "If this resource is defined, it provides a link to the APN connection profile Object Instance (OMNA registered Object ID:11) to be used to communicate with this server."
+          },
+          "11": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "title": "TLS-DTLS Alert Code",
+            "description": "If this resource is defined, it contains the most recent TLS / DTLS alert message received from the LwM2M Server respective represented by the AlertDescription defined in Section 7.2 of RFC 5246. This resource set by the LwM2M Client may help the LwM2M Bootstrap-Server to determine the cause of TLS/DTLS connection failure with the respective LwM2M Server."
+          },
+          "12": {
+            "type": "integer",
+            "minimum": 1000000000,
+            "title": "Last Bootstrapped",
+            "description": "If this resource is defined, it represents the last time that the bootstrap server updated this LwM2M Server Account. The LwM2M Client is responsible for updating this value. When the Bootstrap Server detects that this LwM2M Server Account is \"out-of-date\", the Bootstrap Server can update the LwM2M Server Account as represented by the LwM2M Server object instance. Unix Time. A signed integer representing the number of seconds since Jan 1 st, 1970 in the UTC time zone."
+          },
+          "13": {
+            "type": "integer",
+            "title": "Registration Priority Order",
+            "description": "The LwM2M Client sequences the LwM2M Server registrations in increasing order of this value. If this value is not defined, registration attempts to this server are not impacted by other server registrations."
+          },
+          "14": {
+            "type": "integer",
+            "title": "Initial Registration Delay Timer",
+            "description": "The delay, in seconds, before registration is attempted for this LwM2M Server based upon the completion of registration of the previous LwM2M Server in the registration order. This is only applied until the first successful registration after a successful bootstrapping sequence. Units: s."
+          },
+          "15": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Registration Failure Block",
+            "description": "When set to true and registration to this LwM2M server fails, the LwM2M Client blocks registration to other servers in the order. When set to false, the LwM2M Client proceeds with registration to the next server in the order."
+          },
+          "16": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Bootstrap on Registration Failure",
+            "description": "If set to true, this indicates that the LwM2M Client should re-bootstrap when either registration is explicitly rejected by the LwM2M Server or registration is considered as failing as dictated by the other resource settings. If set to false, the LwM2M Client will continue with the registration attempts as dictated by the other resource settings."
+          },
+          "17": {
+            "type": "integer",
+            "title": "Communication Retry Count",
+            "description": "The number of successive communication attempts before which a communication sequence is considered as failed."
+          },
+          "18": {
+            "type": "integer",
+            "title": "Communication Retry Timer",
+            "description": "The delay, in seconds, between successive communication attempts in a communication sequence. This value is multiplied by two to the power of the communication retry attempt minus one (2**(retry attempt-1)) to create an exponential back-off. Units: s."
+          },
+          "19": {
+            "type": "integer",
+            "title": "Communication Sequence Delay Timer",
+            "description": "The delay, in seconds, between successive communication sequences. A communication sequence is defined as the exhaustion of the Communication Retry Count and Communication Retry Timer values. A communication sequence can be applied to server registrations or bootstrapping attempts. MAX_VALUE means do not perform another communication sequence. Units: s."
+          },
+          "20": {
+            "type": "integer",
+            "title": "Communication Sequence Retry Count",
+            "description": "The number of successive communication sequences before which a registration attempt is considered as failed."
+          },
+          "21": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Trigger",
+            "description": "Using the Trigger Resource a LwM2M Client can indicate whether it is reachable over SMS (value set to 'true') or not (value set to 'false'). The default value (resource not present) is 'false'. When set to 'true' the LwM2M Server MAY, for example, request the LwM2M Client to perform operations, such as the \"Update\" operation by sending an \"Execute\" operation on \"Registration Update Trigger\" Resource via SMS. No SMS response is expected for such a message."
+          },
+          "22": {
+            "type": "string",
+            "title": "Preferred Transport",
+            "description": "Only a single transport binding SHALL be present. When the LwM2M client supports multiple transports, it MAY use this transport to initiate a connection. This resource can also be used to switch between multiple transports e.g. a non-IP device can switch to UDP transport to perform firmware updates."
+          },
+          "23": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Mute Send",
+            "description": "If true or the Resource is not present, the LwM2M Client Send command capability is de-activated. \r\nIf false, the LwM2M Client Send Command capability is activated."
+          },
+          "24": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^dd:dd$" },
+            "title": "Alternate APN Links",
+            "description": "If this resource is defined, it provides links to alternate APN connection profile Object Instance (OMNA registered Object ID:11) to be used to communicate with this server if Resource 10 has configuration conflicts."
+          },
+          "25": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "title": "Supported Server Versions",
+            "description": "This resource provides the supported enabler versions of the server to the client as a set of strings. Format for each string is 1*DIGIT\".\"1*DIGIT\".\"1*DIGIT where the third DIGIT is optional."
+          },
+          "26": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1,
+            "title": "Default Notification Mode",
+            "description": "This resource indicates the default mode for observations to be sent: 0 = Non-Confirmable, 1 = Confirmable."
+          },
+          "27": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "title": "Profile ID Hash Algorithm",
+            "description": "If this resource is defined, it contains the hash algorithm the LwM2M Server would prefer the LwM2M Client to use with the dynamically generated mode of creating Profile IDs. The numerical ID value of the 'Suite Identifiers' registered by RFC 6920 is used in this Resource."
+          }
+        },
+        "required": ["0", "1", "6", "7"]
+      }
     }
   }
 }
