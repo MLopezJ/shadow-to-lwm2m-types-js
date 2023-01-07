@@ -1,25 +1,30 @@
+import coioteLwM2MJsonShcema from "../shadow/coioteLwM2MJsonShcema.schema.json"
 import sc from "schema-casting";
-import { cast } from "./cast";
-
-/**
- * Draft schema of 3303
- */
-const schema = {
-  $schema: "http://json-schema.org/draft-04/schema#",
-  type: "object",
-  properties: {
-    "5518": { required: true, type: "integer" },
-  },
-  required: true,
-  additionalProperties: false,
-};
 
 const input = {
-  "5518": "1665149633",
+  "3303:1.1": [
+    {
+      "5518": "1665149633",
+      "5601": "23.51",
+      "5602": "23.51",
+      "5603": "-40",
+      "5604": "85",
+      "5700": "24.57",
+      "5701": "Celsius degrees",
+    },
+    {
+      "5518": 1665149633,
+      "5601": "23.51",
+      "5602": "23.51",
+      "5603": "-40",
+      "5604": "85",
+      "5700": 24.57,
+      "5701": "Celsius degrees",
+    },
+  ],
 };
 
-const output = sc(schema, input);
-// { '5518': 1665149633 }
-console.log(output);
 
-console.log(cast(schema, input))
+// NOTE: this implementation is temporal
+const castData = (schema: object, value: object) => sc(schema, value)
+console.log(castData(coioteLwM2MJsonShcema,input))
