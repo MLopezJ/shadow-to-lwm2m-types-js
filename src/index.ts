@@ -1,4 +1,4 @@
-import { removeNotProvidedValues } from "./cleanShadow/cleanShadow";
+import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
 import { nameToId } from "./fromNamesToIds/nameToId";
 import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
 import coioteShadow from "./shadow/shadow.json";
