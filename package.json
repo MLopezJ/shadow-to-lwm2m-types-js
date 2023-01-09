@@ -46,8 +46,6 @@
   },
   "dependencies": {
     "@nordicsemiconductor/lwm2m-types": "^1.0.1",
-    "jsonschema": "^1.4.1",
-    "lodash": "^4.17.21",
     "schema-casting": "^1.4.0"
   }
 }
