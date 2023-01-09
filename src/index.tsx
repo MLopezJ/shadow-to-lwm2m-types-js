@@ -6,7 +6,7 @@ import { fromIdToUrn } from "./updateResourceId";
 import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json"
 import sc from "schema-casting";
 
-const main = async (shadow: any) => {
+const main = async (shadow: any, jsonSchema: any) => {
   // step 1: Transform shadow from map to plain object
   const plainObject = fromMapToPlainObject(shadow.state.reported); // TODO: set type struct
   console.log(plainObject);
@@ -24,7 +24,7 @@ const main = async (shadow: any) => {
   console.log(objectWithUrn);
 
   // step 5: Cast data
-  const castObject = sc(coioteLwM2MJsonShcema, objectWithUrn) 
+  const castObject = sc(jsonSchema, objectWithUrn) 
   //castData(objectWithUrn);
   console.log(castObject);
 
@@ -33,4 +33,4 @@ const main = async (shadow: any) => {
 
 };
 
-main(coioteShadow);
+main(coioteShadow, coioteLwM2MJsonShcema);
