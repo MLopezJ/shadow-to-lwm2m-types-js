@@ -11,24 +11,18 @@ import sc from "schema-casting";
 export const main = async (shadow: any, jsonSchema: any) => {
   // step 1: Transform shadow from map to plain object
   const plainObject = fromMapToPlainObject(shadow.state.reported); // TODO: set type struct
-  console.log(plainObject);
 
   // step 2: Remove not provided values
   const cleanObject = removeNotProvidedValues(plainObject);
-  console.log(cleanObject);
 
   // step 3: Combine ids with values
   const objectWithIds = nameToId(cleanObject);
-  console.log(objectWithIds);
 
   // step 4: Transform id of element to URN
   const objectWithUrn = await fromIdToUrn(objectWithIds!); 
-  console.log(objectWithUrn);
 
   // step 5: Cast data
   const castObject = sc(jsonSchema, objectWithUrn) 
-  //castData(objectWithUrn);
-  console.log(castObject);
 
   return castObject
   // step 6: validate result

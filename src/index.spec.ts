@@ -38,13 +38,13 @@ describe("end to end", () => {
               "rsrp-Result": "-115",
               "rsrq-Result": "-12",
               "ue-RxTxTimeDiff": "23",
-            }
+            },
           },
         },
       },
     };
 
-    const output = {
+    const expected = {
       "3303:1.1": [
         {
           "5518": 2022,
@@ -68,6 +68,12 @@ describe("end to end", () => {
       ],
     };
 
-    expect(await main(input, coioteLwM2MJsonShcema)).toStrictEqual(output);
+    const result = await main(input, coioteLwM2MJsonShcema)
+    expect(Object.keys(input.state.reported).length).toEqual(
+      Object.keys(result).length
+    );
+    expect(result).toStrictEqual(expected);
+    expect(result).not.toHaveProperty("ECID-Signal Measurement Information");
+    expect(result).toHaveProperty("10256");
   });
 });
