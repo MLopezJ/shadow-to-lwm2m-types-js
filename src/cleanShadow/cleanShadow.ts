@@ -55,3 +55,16 @@ export const cleanShadow = (shadow: receivedShadow) => {
   }
   return plainShadow;
 };
+
+
+// TODO: add description 
+// TODO: add unit test
+export const removeNotProvidedValues = (shadow: any) => {
+  //const plainShadow = fromMapToPlainObject(shadow.state.reported);
+  for (const object of Object.keys(shadow)) {
+    shadow[`${object}`] = shadow[`${object}`]!.map((element) =>
+      removeNotProvidedProp(element)
+    );
+  }
+  return shadow;
+};
