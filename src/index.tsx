@@ -30,6 +30,8 @@ const main = async (shadow: any, jsonSchema: any) => {
 
   // step 6: validate result
   const result = {};
+  // TODO: add validate function from @nordicsemiconductor/lwm2m-types
+  // More info: https://github.com/MLopezJ/shadow-to-lwm2m-types-js/issues/3#issuecomment-1376025247  
 
 };
 
