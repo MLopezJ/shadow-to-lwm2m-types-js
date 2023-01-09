@@ -1,4 +1,4 @@
-import type { shadowObject, noValue, propMap } from "../cleanShadow/cleanShadow";
+import type { shadowObject, noValue, propMap } from "../cleanShadow/removeNotProvidedValues";
 
 export type plainObject = Record<string, propObject[]>;
 
