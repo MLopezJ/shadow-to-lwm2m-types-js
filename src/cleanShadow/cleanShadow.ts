@@ -43,7 +43,7 @@ export type noValue = {
 export type propMap = Record<string, string>;
 
 /**
- * Tranform value from map to plain object 
+ * Tranform value from map to plain object
  * and remove not usefull data from it
  */
 export const cleanShadow = (shadow: receivedShadow) => {
@@ -56,11 +56,12 @@ export const cleanShadow = (shadow: receivedShadow) => {
   return plainShadow;
 };
 
-
-// TODO: add description 
+// TODO: add types
 // TODO: add unit test
+/**
+ * Iterate object to remove not provided values
+ */
 export const removeNotProvidedValues = (shadow: any) => {
-  //const plainShadow = fromMapToPlainObject(shadow.state.reported);
   for (const object of Object.keys(shadow)) {
     shadow[`${object}`] = shadow[`${object}`]!.map((element) =>
       removeNotProvidedProp(element)
