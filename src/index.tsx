@@ -6,6 +6,8 @@ import { fromIdToUrn } from "./updateResourceId";
 import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json"
 import sc from "schema-casting";
 
+// TODO: set type on params
+// TODO: set return function type
 const main = async (shadow: any, jsonSchema: any) => {
   // step 1: Transform shadow from map to plain object
   const plainObject = fromMapToPlainObject(shadow.state.reported); // TODO: set type struct
