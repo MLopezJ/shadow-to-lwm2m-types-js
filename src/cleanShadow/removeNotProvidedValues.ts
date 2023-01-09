@@ -1,4 +1,59 @@
-import type { propMap, value } from "./cleanShadow";
+import { fromMapToPlainObject } from "../fromMapToPlainObject/fromMapToPlainObject";
+
+/**
+ * { state: { reported: {...} } }
+ */
+export type receivedShadow = {
+  state: {
+    reported: shadowObject;
+  };
+};
+
+/**
+ * "Connectivity Monitoring": {...}
+ */
+export type shadowObject = Record<string, mapId>;
+
+/**
+ * "0": {...}
+ */
+type mapId = Record<string, props>;
+
+/**
+ *
+ * {"SMNC": "1"}
+ * {"Router IP Addresses": {}},
+ *
+ */
+export type props = Record<string, value>;
+
+export type value = string | {} | noValue | propMap;
+
+/**
+ * {"noValue": true}
+ */
+export type noValue = {
+  noValue: boolean;
+};
+
+/**
+ *  {"0": "ibasis.iot"}
+ */
+export type propMap = Record<string, string>;
+
+// TODO: add types
+// TODO: add unit test
+/**
+ * Iterate object to remove not provided values
+ */
+export const removeNotProvidedValues = (shadow: any) => {
+  for (const object of Object.keys(shadow)) {
+    shadow[`${object}`] = shadow[`${object}`]!.map((element) =>
+      checkProp(element)
+    );
+  }
+  return shadow;
+};
 
 type filteredPlainObject = Record<string, string | propMap>;
 
@@ -10,9 +65,7 @@ type plainObject = Record<string, value>;
  *    Empty string --> {prop: ""}
  *    Empty object --> {prop: {}}
  */
-export const removeNotProvidedProp = (
-  object: plainObject
-): filteredPlainObject => {
+export const checkProp = (object: plainObject): filteredPlainObject => {
   return Object.keys(object)
     .filter((id) => {
       const prop: value = object[`${id}`] ?? "";
