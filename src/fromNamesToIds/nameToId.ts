@@ -1,4 +1,4 @@
-import type { LwM2MTypes } from "src/shadow/LwM2M-ids";
+import type { LwM2MTypes } from "../shadow/LwM2M-ids";
 import { getPropsId } from "./getPropsId";
 import { getResourceId } from "./getResourceId";
 

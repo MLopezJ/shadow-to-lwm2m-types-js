@@ -14,6 +14,26 @@ describe("combine", () => {
           Timestamp: "2022-10-07T13:33:22Z",
         },
       ],
+      "Connectivity Monitoring": [
+        {
+          SMNC: "1",
+          "Available Network Bearer": ["6", "7"],
+        },
+      ],
+      "ECID-Signal Measurement Information": [
+        {
+          physCellId: "247",
+          ECGI: "0",
+        },
+        {
+          physCellId: "425",
+          ECGI: "0",
+        },
+        {
+          physCellId: "195",
+          ECGI: "0",
+        },
+      ],
     };
     const expected = {
       "3303": [
@@ -27,7 +47,19 @@ describe("combine", () => {
           "5701": "Celsius degrees",
         },
       ],
+      "4": [
+        {
+          "9": "1",
+          "1": ["6", "7"],
+        },
+      ],
+      "10256": [
+        { "0": "247", "1": "0" },
+        { "0": "425", "1": "0" },
+        { "0": "195", "1": "0" },
+      ],
     };
+    // TODO: set type
     expect(nameToId(input)).toStrictEqual(expected);
   }),
     it("Should ignore not recognized values", () => {
@@ -52,7 +84,8 @@ describe("combine", () => {
             Timestamp: "2022-10-07T13:33:22Z",
           },
         ],
-        "not recognized value": [ // Resource name is not recognized
+        "not recognized value": [
+          // Resource name is not recognized
           {
             "Max Measured Value": "1123.51",
             "Max Range Value": "1185.0",
@@ -86,6 +119,7 @@ describe("combine", () => {
           },
         ],
       };
+      // TODO: set type
       expect(nameToId(input)).toStrictEqual(expected);
     });
 });

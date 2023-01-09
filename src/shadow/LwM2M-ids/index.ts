@@ -34,14 +34,14 @@ export interface LwM2MTypes {
  * Map shadow's name values with LwM2M IDs Object and Properties
  */
 export const LwM2MIds = {
-  ConnectivityMonitoring,
-  ECIDSignalMeasurementInformation,
+  "Connectivity Monitoring": ConnectivityMonitoring,
+  "ECID-Signal Measurement Information": ECIDSignalMeasurementInformation,
   Device,
-  FirmwareUpdate,
+  "Firmware Update": FirmwareUpdate,
   Humidity,
   Location,
-  LwM2MServer,
+  "LwM2M Server": LwM2MServer,
   Pressure,
-  PushButton,
+  "Push button": PushButton,
   Temperature,
 };
