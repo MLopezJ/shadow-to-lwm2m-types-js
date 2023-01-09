@@ -45,7 +45,7 @@
     ]
   },
   "dependencies": {
-    "@nordicsemiconductor/lwm2m-types": "^1.0.1",
-    "schema-casting": "^1.4.0"
+    "@nordicsemiconductor/lwm2m-types": "1.0.1",
+    "schema-casting": "1.4.0"
   }
 }
