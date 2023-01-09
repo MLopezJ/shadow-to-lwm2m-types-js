@@ -1,5 +1,5 @@
 import coioteLwM2MJsonShcema from "../shadow/coioteLwM2MJsonShcema.schema.json"
-import sc from "schema-casting";
+import sc from 'schema-casting';
 
 const input = {
   "3303:1.1": [
