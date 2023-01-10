@@ -18,15 +18,15 @@ export type lwM2MObject = {
 }
 
 export interface LwM2MTypes {
-  ConnectivityMonitoring: lwM2MObject;
-  ECIDSignalMeasurementInformation: lwM2MObject;
+  "Connectivity Monitoring": lwM2MObject;
+  "ECID-Signal Measurement Information": lwM2MObject;
   Device: lwM2MObject;
-  FirmwareUpdate: lwM2MObject;
+  "Firmware Update": lwM2MObject;
   Humidity: lwM2MObject;
   Location: lwM2MObject;
-  LwM2MServer: lwM2MObject;
+  "LwM2M Server": lwM2MObject;
   Pressure: lwM2MObject;
-  PushButton: lwM2MObject;
+  "Push button": lwM2MObject;
   Temperature: lwM2MObject;
 }
 
@@ -34,14 +34,14 @@ export interface LwM2MTypes {
  * Map shadow's name values with LwM2M IDs Object and Properties
  */
 export const LwM2MIds = {
-  ConnectivityMonitoring,
-  ECIDSignalMeasurementInformation,
+  "Connectivity Monitoring": ConnectivityMonitoring,
+  "ECID-Signal Measurement Information": ECIDSignalMeasurementInformation,
   Device,
-  FirmwareUpdate,
+  "Firmware Update": FirmwareUpdate,
   Humidity,
   Location,
-  LwM2MServer,
+  "LwM2M Server": LwM2MServer,
   Pressure,
-  PushButton,
+  "Push button": PushButton,
   Temperature,
 };

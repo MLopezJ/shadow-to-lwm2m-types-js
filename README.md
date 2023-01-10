@@ -183,7 +183,7 @@ export const Temperature = {
 ```
 
 ## Expected process: cast data
-- [ ] Done
+- [x] Done
 
 ```json
 {

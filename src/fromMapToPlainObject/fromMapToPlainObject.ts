@@ -1,15 +1,28 @@
-import type { shadowObject, noValue, propMap } from "../cleanShadow/cleanShadow";
+import { ShadowObject, value } from "../shadow/shadowType";
 
-export type plainObject = Record<string, propObject[]>;
+/**
+ * { physCellId: "247" }
+ */
+export type Props = Record<string, value>;
 
-type propObject = Record<string, prop>;
-
-type prop = string | noValue | {} | propMap;
+/**
+ * "ECID-Signal Measurement Information": [
+ *  {
+ *    physCellId: "247",
+ *    ECGI: "0",
+ *    "Last Bootstrapped":
+ *      { noValue: true }
+ *  }
+ * ]
+ */
+export type PlainShadowObject = Record<string, Props[]>;
 
 /**
  * Transforms data struct to plain object
  */
-export const fromMapToPlainObject = (value: shadowObject): plainObject => {
+export const fromMapToPlainObject = (
+  value: ShadowObject
+): PlainShadowObject => {
   const objectKeys = Object.keys(value);
   return objectKeys.reduce((previus: any, currentObject) => {
     const mapKeys = Object.keys(value[`${currentObject}`]!);
@@ -19,7 +32,7 @@ export const fromMapToPlainObject = (value: shadowObject): plainObject => {
         (previusResult: {} | any, currentProp: string) => {
           const newObject = previusResult;
 
-          const objectProp: prop =
+          const objectProp: value =
             value[`${currentObject}`]![`${key}`]![`${currentProp}`] ?? "";
 
           if (typeof objectProp === "string")

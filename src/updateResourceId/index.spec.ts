@@ -1,4 +1,4 @@
-import { getURN } from "./index";
+import { fromIdToUrn, getURN } from "./index";
 
 describe("Update resource id", () => {
   it.each([
@@ -19,4 +19,42 @@ describe("Update resource id", () => {
       expect(await getURN(value)).toBe(expected);
     }
   );
+
+  it("should iterate over the object and change the resource id with URN", async () => {
+    const input = {
+      "3": [
+        {
+          "0": "Nordic Semiconductor ASA",
+          "1": "thingy91_nrf9160",
+          "3": "0.0.0-development",
+        },
+      ],
+      "6": [
+        {
+          "0": "0.0",
+          "1": "0.0",
+          "2": "0.0",
+        },
+      ],
+    };
+
+    const expected = {
+      "3:1.2@1.1": [
+        {
+          "0": "Nordic Semiconductor ASA",
+          "1": "thingy91_nrf9160",
+          "3": "0.0.0-development",
+        },
+      ],
+      "6": [
+        {
+          "0": "0.0",
+          "1": "0.0",
+          "2": "0.0",
+        },
+      ],
+    };
+
+    expect(await fromIdToUrn(input)).toStrictEqual(expected);
+  });
 });
