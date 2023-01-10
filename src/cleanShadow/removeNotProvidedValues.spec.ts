@@ -1,15 +1,14 @@
 import {
   checkProps,
-  Props,
   PropsWithoutNotProvidedValues,
   removeNotProvidedValues,
-  Shadow,
   ShadowWithoutNotProvidedValues,
 } from "./removeNotProvidedValues";
+import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
 
 describe("removeNotProvidedValues", () => {
   it("should iterate object and remove not provided props", () => {
-    const value: Shadow = {
+    const value: PlainShadowObject = {
       "Connectivity Monitoring": [
         {
           SMNC: "1",

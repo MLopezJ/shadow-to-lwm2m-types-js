@@ -1,32 +1,21 @@
+import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
 import { propMap, value } from "../shadow/shadowType";
-
-/**
- * { physCellId: "247" }
- */
-export type Props = Record<string, value>;
-
-/**
- * "ECID-Signal Measurement Information": [
- *  {
- *    physCellId: "247",
- *    ECGI: "0",
- *    "Last Bootstrapped":
- *      { noValue: true }
- *  }
- * ]
- */
-export type Shadow = Record<string, Props[]>;
 
 export type ShadowWithoutNotProvidedValues = Record<
   string,
   PropsWithoutNotProvidedValues[]
 >;
 
+export type PropsWithoutNotProvidedValues = Record<
+  string,
+  string | propMap | string[]
+>;
+
 /**
  * Iterate object to remove not provided values
  */
 export const removeNotProvidedValues = (
-  inputValue: Shadow
+  inputValue: PlainShadowObject
 ): ShadowWithoutNotProvidedValues => {
   const shadow: ShadowWithoutNotProvidedValues = {};
   for (const key of Object.keys(inputValue)) {
@@ -36,11 +25,6 @@ export const removeNotProvidedValues = (
   }
   return shadow;
 };
-
-export type PropsWithoutNotProvidedValues = Record<
-  string,
-  string | propMap | string[]
->;
 
 /**
  * Remove property from shadow when its value is:
