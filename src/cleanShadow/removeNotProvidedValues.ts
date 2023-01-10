@@ -55,9 +55,7 @@ export const removeNotProvidedValues = (shadow: any) => {
   return shadow;
 };
 
-type filteredPlainObject = Record<string, string | propMap>;
-
-type plainObject = Record<string, value>;
+export type PropsWithoutNotProvidedValues = Record<string, string | propMap>;
 
 /**
  * Remove property from shadow when its value is:
@@ -65,7 +63,9 @@ type plainObject = Record<string, value>;
  *    Empty string --> {prop: ""}
  *    Empty object --> {prop: {}}
  */
-export const checkProp = (object: plainObject): filteredPlainObject => {
+export const checkProp = (
+  object: props
+): PropsWithoutNotProvidedValues => {
   return Object.keys(object)
     .filter((id) => {
       const prop: value = object[`${id}`] ?? "";
@@ -81,7 +81,7 @@ export const checkProp = (object: plainObject): filteredPlainObject => {
       }
       return true;
     })
-    .reduce((previus: Record<string, string>, current: string) => {
+    .reduce((previus: PropsWithoutNotProvidedValues, current: string) => {
       const newObject = previus;
       newObject[`${current}`] = object[`${current}`] as string;
       return newObject;

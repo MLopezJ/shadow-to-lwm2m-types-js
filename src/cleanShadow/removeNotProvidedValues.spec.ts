@@ -1,6 +1,7 @@
 import {
-  checkProp,
-  receivedShadow,
+  checkProps,
+  props,
+  PropsWithoutNotProvidedValues,
   removeNotProvidedValues,
 } from "./removeNotProvidedValues";
 
@@ -72,7 +73,7 @@ describe("removeNotProvidedValues", () => {
 
 describe("checkProp", () => {
   it('should remove properties when its value is cataloged as "not provided"', () => {
-    const object = {
+    const object: props = {
       "Application Type": "",
       "Router IP Addresses": {},
       "Fractional Timestamp": {
@@ -84,6 +85,16 @@ describe("checkProp", () => {
       },
       "Max Measured Value": "23.51",
     };
+
+    const newObject: PropsWithoutNotProvidedValues = {
+      "Available Network Bearer": {
+        "0": "6",
+        "1": "7",
+      },
+      "Max Measured Value": "23.51",
+    };
+
+    expect(checkProp(object)).toStrictEqual(newObject)
 
     expect(checkProp(object)).not.toHaveProperty("Fractional Timestamp");
 
