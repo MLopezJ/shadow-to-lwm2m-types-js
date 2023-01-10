@@ -1,61 +1,46 @@
-import { fromMapToPlainObject } from "../fromMapToPlainObject/fromMapToPlainObject";
+import { propMap, value } from "../shadow/shadowType";
 
 /**
- * { state: { reported: {...} } }
+ * { physCellId: "247" }
  */
-export type receivedShadow = {
-  state: {
-    reported: shadowObject;
-  };
-};
+export type Props = Record<string, value>;
 
 /**
- * "Connectivity Monitoring": {...}
+ * "ECID-Signal Measurement Information": [
+ *  {
+ *    physCellId: "247",
+ *    ECGI: "0",
+ *    "Last Bootstrapped":
+ *      { noValue: true }
+ *  }
+ * ]
  */
-export type shadowObject = Record<string, mapId>;
+export type Shadow = Record<string, Props[]>;
 
-/**
- * "0": {...}
- */
-type mapId = Record<string, props>;
+export type ShadowWithoutNotProvidedValues = Record<
+  string,
+  PropsWithoutNotProvidedValues[]
+>;
 
-/**
- *
- * {"SMNC": "1"}
- * {"Router IP Addresses": {}},
- *
- */
-export type props = Record<string, value>;
-
-export type value = string | {} | noValue | propMap;
-
-/**
- * {"noValue": true}
- */
-export type noValue = {
-  noValue: boolean;
-};
-
-/**
- *  {"0": "ibasis.iot"}
- */
-export type propMap = Record<string, string>;
-
-// TODO: add types
-// TODO: add unit test
 /**
  * Iterate object to remove not provided values
  */
-export const removeNotProvidedValues = (shadow: any) => {
-  for (const object of Object.keys(shadow)) {
-    shadow[`${object}`] = shadow[`${object}`]!.map((element) =>
+export const removeNotProvidedValues = (
+  inputValue: Shadow
+): ShadowWithoutNotProvidedValues => {
+  const shadow: ShadowWithoutNotProvidedValues = {};
+  for (const key of Object.keys(inputValue)) {
+    shadow[`${key}`] = inputValue[`${key}`]!.map((element) =>
       checkProps(element)
     );
   }
   return shadow;
 };
 
-export type PropsWithoutNotProvidedValues = Record<string, string | propMap>;
+export type PropsWithoutNotProvidedValues = Record<
+  string,
+  string | propMap | string[]
+>;
 
 /**
  * Remove property from shadow when its value is:
@@ -63,9 +48,7 @@ export type PropsWithoutNotProvidedValues = Record<string, string | propMap>;
  *    Empty string --> {prop: ""}
  *    Empty object --> {prop: {}}
  */
-export const checkProps = (
-  object: props
-): PropsWithoutNotProvidedValues => {
+export const checkProps = (object: Props): PropsWithoutNotProvidedValues => {
   return Object.keys(object)
     .filter((id) => {
       const prop: value = object[`${id}`] ?? "";

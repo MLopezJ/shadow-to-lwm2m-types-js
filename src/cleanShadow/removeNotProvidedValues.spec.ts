@@ -1,13 +1,15 @@
 import {
   checkProps,
-  props,
+  Props,
   PropsWithoutNotProvidedValues,
   removeNotProvidedValues,
+  Shadow,
+  ShadowWithoutNotProvidedValues,
 } from "./removeNotProvidedValues";
 
 describe("removeNotProvidedValues", () => {
   it("should iterate object and remove not provided props", () => {
-    const value = {
+    const value: Shadow = {
       "Connectivity Monitoring": [
         {
           SMNC: "1",
@@ -41,7 +43,7 @@ describe("removeNotProvidedValues", () => {
       ],
     };
 
-    const expected = {
+    const expected: ShadowWithoutNotProvidedValues = {
       "Connectivity Monitoring": [
         {
           SMNC: "1",
@@ -73,7 +75,7 @@ describe("removeNotProvidedValues", () => {
 
 describe("checkProps", () => {
   it('should remove properties when its value is cataloged as "not provided"', () => {
-    const object: props = {
+    const object: Props = {
       "Application Type": "",
       "Router IP Addresses": {},
       "Fractional Timestamp": {
