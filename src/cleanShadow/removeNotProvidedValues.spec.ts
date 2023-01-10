@@ -96,7 +96,7 @@ describe("checkProps", () => {
       "Max Measured Value": "23.51",
     };
 
-    expect(checkProps(object)).toStrictEqual(newObject)
+    expect(checkProps(object)).toStrictEqual(newObject);
 
     expect(checkProps(object)).not.toHaveProperty("Fractional Timestamp");
 
