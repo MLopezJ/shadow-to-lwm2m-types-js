@@ -1,4 +1,4 @@
-import type { shadowObject } from "../cleanShadow/cleanShadow";
+import type { shadowObject } from "../cleanShadow/removeNotProvidedValues";
 import { fromMapToPlainObject, plainObject } from "./fromMapToPlainObject";
 
 describe("fromMapToPlainObject()", () => {
@@ -77,5 +77,6 @@ describe("fromMapToPlainObject()", () => {
     };
 
     expect(fromMapToPlainObject(value)).toStrictEqual(expected);
+    expect(Object.keys(value).length).toEqual(Object.keys(fromMapToPlainObject(value)).length)
   });
 });

@@ -1,8 +1,46 @@
-import type { propMap, value } from "./cleanShadow";
+import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
+import { propMap, value } from "../shadow/shadowType";
+/**
+ * {
+ *  "Temperature": [
+ *    {
+ *      "Max Measured Value": "23.51",
+ *      "Max Range Value": "85.0",
+ *    }
+ *  ]
+ * }
+ * 
+ */
+export type ShadowWithoutNotProvidedValues = Record<
+  string,
+  PropsWithoutNotProvidedValues[]
+>;
 
-type filteredPlainObject = Record<string, string | propMap>;
+/**
+ * {
+ *   "Max Measured Value": "23.51",
+ *   "Max Range Value": "85.0",
+ * }
+ */
+export type PropsWithoutNotProvidedValues = Record<
+  string,
+  string | propMap | string[]
+>;
 
-type plainObject = Record<string, value>;
+/**
+ * Iterate object to remove not provided values
+ */
+export const removeNotProvidedValues = (
+  inputValue: PlainShadowObject
+): ShadowWithoutNotProvidedValues => {
+  const shadow: ShadowWithoutNotProvidedValues = {};
+  for (const key of Object.keys(inputValue)) {
+    shadow[`${key}`] = inputValue[`${key}`]!.map((element) =>
+      checkProps(element)
+    );
+  }
+  return shadow;
+};
 
 /**
  * Remove property from shadow when its value is:
@@ -10,9 +48,7 @@ type plainObject = Record<string, value>;
  *    Empty string --> {prop: ""}
  *    Empty object --> {prop: {}}
  */
-export const removeNotProvidedProp = (
-  object: plainObject
-): filteredPlainObject => {
+export const checkProps = (object: Props): PropsWithoutNotProvidedValues => {
   return Object.keys(object)
     .filter((id) => {
       const prop: value = object[`${id}`] ?? "";
@@ -28,7 +64,7 @@ export const removeNotProvidedProp = (
       }
       return true;
     })
-    .reduce((previus: Record<string, string>, current: string) => {
+    .reduce((previus: PropsWithoutNotProvidedValues, current: string) => {
       const newObject = previus;
       newObject[`${current}`] = object[`${current}`] as string;
       return newObject;

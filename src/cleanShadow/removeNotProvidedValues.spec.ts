@@ -1,8 +1,80 @@
-import { removeNotProvidedProp } from "./removeNotProvidedValues";
+import {
+  checkProps,
+  PropsWithoutNotProvidedValues,
+  removeNotProvidedValues,
+  ShadowWithoutNotProvidedValues,
+} from "./removeNotProvidedValues";
+import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
 
-describe("removeNotProvidedProp", () => {
-  it('should remove properties when its value is "{"noValue": true}"', () => {
-    const object = {
+describe("removeNotProvidedValues", () => {
+  it("should iterate object and remove not provided props", () => {
+    const value: PlainShadowObject = {
+      "Connectivity Monitoring": [
+        {
+          SMNC: "1",
+          "Application Type": "",
+          "Available Network Bearer": ["6", "7"],
+          "Router IP Addresses": {},
+        },
+      ],
+      "ECID-Signal Measurement Information": [
+        {
+          physCellId: "247",
+          ECGI: "0",
+          "Last Bootstrapped": {
+            noValue: true,
+          },
+        },
+        {
+          physCellId: "425",
+          ECGI: "0",
+          "Last Bootstrapped": {
+            noValue: true,
+          },
+        },
+        {
+          physCellId: "195",
+          ECGI: "0",
+          "Last Bootstrapped": {
+            noValue: true,
+          },
+        },
+      ],
+    };
+
+    const expected: ShadowWithoutNotProvidedValues = {
+      "Connectivity Monitoring": [
+        {
+          SMNC: "1",
+          "Available Network Bearer": ["6", "7"],
+        },
+      ],
+      "ECID-Signal Measurement Information": [
+        {
+          physCellId: "247",
+          ECGI: "0",
+        },
+        {
+          physCellId: "425",
+          ECGI: "0",
+        },
+        {
+          physCellId: "195",
+          ECGI: "0",
+        },
+      ],
+    };
+
+    const result = removeNotProvidedValues(value);
+
+    expect(result).toStrictEqual(expected);
+    expect(Object.keys(value).length).toEqual(Object.keys(result).length);
+  });
+});
+
+describe("checkProps", () => {
+  it('should remove properties when its value is cataloged as "not provided"', () => {
+    const object: Props = {
       "Application Type": "",
       "Router IP Addresses": {},
       "Fractional Timestamp": {
@@ -15,22 +87,24 @@ describe("removeNotProvidedProp", () => {
       "Max Measured Value": "23.51",
     };
 
-    expect(removeNotProvidedProp(object)).not.toHaveProperty(
-      "Fractional Timestamp"
-    );
+    const newObject: PropsWithoutNotProvidedValues = {
+      "Available Network Bearer": {
+        "0": "6",
+        "1": "7",
+      },
+      "Max Measured Value": "23.51",
+    };
 
-    expect(removeNotProvidedProp(object)).not.toHaveProperty(
-      "Router IP Addresses"
-    );
+    expect(checkProps(object)).toStrictEqual(newObject);
 
-    expect(removeNotProvidedProp(object)).not.toHaveProperty(
-      "Application Type"
-    );
+    expect(checkProps(object)).not.toHaveProperty("Fractional Timestamp");
 
-    expect(removeNotProvidedProp(object)).toHaveProperty(
-      "Available Network Bearer"
-    );
+    expect(checkProps(object)).not.toHaveProperty("Router IP Addresses");
 
-    expect(removeNotProvidedProp(object)).toHaveProperty("Max Measured Value");
+    expect(checkProps(object)).not.toHaveProperty("Application Type");
+
+    expect(checkProps(object)).toHaveProperty("Available Network Bearer");
+
+    expect(checkProps(object)).toHaveProperty("Max Measured Value");
   });
 });
