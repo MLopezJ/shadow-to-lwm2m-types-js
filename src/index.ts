@@ -5,12 +5,15 @@ import coioteShadow from "./shadow/shadow.json";
 import { fromIdToUrn } from "./updateResourceId";
 import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json"
 import sc from "schema-casting";
+import { ReceivedShadow } from "./shadow/shadowType";
 
-// TODO: set type on params
-// TODO: set return function type
-export const main = async (shadow: any, jsonSchema: any) => {
+/**
+ * Complete flow of transformation from Coiote shadow format to LwM2M
+ */
+// TODO: define json shcema type using @nordicsemiconductor/lwm2m-types lib
+export const main = async (shadow: ReceivedShadow, jsonSchema: any) => {
   // step 1: Transform shadow from map to plain object
-  const plainObject = fromMapToPlainObject(shadow.state.reported); // TODO: set type struct
+  const plainObject = fromMapToPlainObject(shadow.state.reported);
 
   // step 2: Remove not provided values
   const cleanObject = removeNotProvidedValues(plainObject);
@@ -29,7 +32,6 @@ export const main = async (shadow: any, jsonSchema: any) => {
   const result = {};
   // TODO: add validate function from @nordicsemiconductor/lwm2m-types
   // More info: https://github.com/MLopezJ/shadow-to-lwm2m-types-js/issues/3#issuecomment-1376025247  
-
 };
 
 main(coioteShadow, coioteLwM2MJsonShcema);
