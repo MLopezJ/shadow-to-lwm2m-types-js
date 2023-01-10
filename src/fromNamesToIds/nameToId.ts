@@ -1,23 +1,29 @@
+import { ShadowWithoutNotProvidedValues } from "../cleanShadow/removeNotProvidedValues";
 import type { LwM2MTypes } from "../shadow/LwM2M-ids";
 import { getPropsId } from "./getPropsId";
 import { getResourceId } from "./getResourceId";
 
-type shadow = Record<string, props>;
+export type Properties = Record<string, string>[];
 
-export type props = Record<string, string>[];
+export type ShadowWithIds = Record<string, (Record<string, string | string[]> | undefined)[]> | undefined
 
 /**
  * Replace names with their equivalent ID
  */
 export const nameToId = (
-  shadow: shadow
-): { [x: string]: (Record<string, string> | undefined)[] } | undefined =>
+  shadow: ShadowWithoutNotProvidedValues
+): ShadowWithIds =>
   Object.keys(shadow)
     .map((resource) => {
-      const objectId = getResourceId(resource as keyof LwM2MTypes);
-      return objectId !== undefined
-        ? { [`${objectId}`]: getPropsId(shadow[`${resource}`]!, resource as keyof LwM2MTypes) }
-        : undefined;
+      const resourceId = getResourceId(resource as keyof LwM2MTypes);
+      if (resourceId !== undefined) {
+        const props = shadow[`${resource}`]!;
+        const propsId = getPropsId(props as Properties, resource as keyof LwM2MTypes)
+        return {
+          [`${resourceId}`]: propsId,
+        };
+      }
+      return undefined;
     })
     .filter((element) => element !== undefined)
     .reduce((previus, current) => {

@@ -1,8 +1,9 @@
-import { nameToId } from "./nameToId";
+import { ShadowWithoutNotProvidedValues } from "../cleanShadow/removeNotProvidedValues";
+import { nameToId, ShadowWithIds } from "./nameToId";
 
 describe("combine", () => {
   it("given a 'clean' plain object shadow it should replace names with equivalent id", () => {
-    const input = {
+    const input: ShadowWithoutNotProvidedValues = {
       Temperature: [
         {
           "Max Measured Value": "23.51",
@@ -35,7 +36,8 @@ describe("combine", () => {
         },
       ],
     };
-    const expected = {
+
+    const expected: ShadowWithIds = {
       "3303": [
         {
           "5518": "2022-10-07T13:33:22Z", //"1665149633",
@@ -59,11 +61,10 @@ describe("combine", () => {
         { "0": "195", "1": "0" },
       ],
     };
-    // TODO: set type
     expect(nameToId(input)).toStrictEqual(expected);
   }),
     it("Should ignore not recognized values", () => {
-      const input = {
+      const input: ShadowWithoutNotProvidedValues = {
         Temperature: [
           {
             "Max Measured Value": "23.51",
@@ -97,7 +98,8 @@ describe("combine", () => {
           },
         ],
       };
-      const expected = {
+
+      const expected: ShadowWithIds = {
         "3303": [
           {
             "5518": "2022-10-07T13:33:22Z",
@@ -119,7 +121,6 @@ describe("combine", () => {
           },
         ],
       };
-      // TODO: set type
       expect(nameToId(input)).toStrictEqual(expected);
     });
 });
