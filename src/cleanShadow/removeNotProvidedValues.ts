@@ -49,7 +49,7 @@ export type propMap = Record<string, string>;
 export const removeNotProvidedValues = (shadow: any) => {
   for (const object of Object.keys(shadow)) {
     shadow[`${object}`] = shadow[`${object}`]!.map((element) =>
-      checkProp(element)
+      checkProps(element)
     );
   }
   return shadow;
@@ -63,7 +63,7 @@ export type PropsWithoutNotProvidedValues = Record<string, string | propMap>;
  *    Empty string --> {prop: ""}
  *    Empty object --> {prop: {}}
  */
-export const checkProp = (
+export const checkProps = (
   object: props
 ): PropsWithoutNotProvidedValues => {
   return Object.keys(object)

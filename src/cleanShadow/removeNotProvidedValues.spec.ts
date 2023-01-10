@@ -71,7 +71,7 @@ describe("removeNotProvidedValues", () => {
   });
 });
 
-describe("checkProp", () => {
+describe("checkProps", () => {
   it('should remove properties when its value is cataloged as "not provided"', () => {
     const object: props = {
       "Application Type": "",
@@ -94,16 +94,16 @@ describe("checkProp", () => {
       "Max Measured Value": "23.51",
     };
 
-    expect(checkProp(object)).toStrictEqual(newObject)
+    expect(checkProps(object)).toStrictEqual(newObject)
 
-    expect(checkProp(object)).not.toHaveProperty("Fractional Timestamp");
+    expect(checkProps(object)).not.toHaveProperty("Fractional Timestamp");
 
-    expect(checkProp(object)).not.toHaveProperty("Router IP Addresses");
+    expect(checkProps(object)).not.toHaveProperty("Router IP Addresses");
 
-    expect(checkProp(object)).not.toHaveProperty("Application Type");
+    expect(checkProps(object)).not.toHaveProperty("Application Type");
 
-    expect(checkProp(object)).toHaveProperty("Available Network Bearer");
+    expect(checkProps(object)).toHaveProperty("Available Network Bearer");
 
-    expect(checkProp(object)).toHaveProperty("Max Measured Value");
+    expect(checkProps(object)).toHaveProperty("Max Measured Value");
   });
 });
