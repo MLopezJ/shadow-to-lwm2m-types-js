@@ -1,3 +1,5 @@
+import { ShadowWithIds } from "../fromNamesToIds/nameToId";
+
 /**
  * Return the URN of the resource following the next format:
  *      '<"oma"|"ext"|"x">:<ObjectID>:<ObjectVersion>@<LWM2MVersion>'
@@ -19,15 +21,14 @@ export const getURN = async (id: string): Promise<string> => {
   }
 };
 
-type value = Record<string, Array<T> | object >;
 
 /**
  * Iterate over the object and update resource id with its URN
  */
-export const fromIdToUrn = async (object: value) => {
+export const fromIdToUrn = async (object: ShadowWithIds) => {
   const newObjectsList = await Promise.all(
-    Object.keys(object).map(async (id) => {
-      return { [await getURN(id)]: object[id] };
+    Object.keys(object!).map(async (id) => {
+      return { [await getURN(id)]: object![id] };
     })
   );
   return newObjectsList.reduce((previus, current) =>
