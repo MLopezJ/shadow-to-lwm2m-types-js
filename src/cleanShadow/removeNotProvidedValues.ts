@@ -1,11 +1,27 @@
 import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
 import { propMap, value } from "../shadow/shadowType";
-
+/**
+ * {
+ *  "Temperature": [
+ *    {
+ *      "Max Measured Value": "23.51",
+ *      "Max Range Value": "85.0",
+ *    }
+ *  ]
+ * }
+ * 
+ */
 export type ShadowWithoutNotProvidedValues = Record<
   string,
   PropsWithoutNotProvidedValues[]
 >;
 
+/**
+ * {
+ *   "Max Measured Value": "23.51",
+ *   "Max Range Value": "85.0",
+ * }
+ */
 export type PropsWithoutNotProvidedValues = Record<
   string,
   string | propMap | string[]
