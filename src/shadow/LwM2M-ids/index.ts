@@ -18,15 +18,15 @@ export type lwM2MObject = {
 }
 
 export interface LwM2MTypes {
-  ConnectivityMonitoring: lwM2MObject;
-  ECIDSignalMeasurementInformation: lwM2MObject;
+  "Connectivity Monitoring": lwM2MObject;
+  "ECID-Signal Measurement Information": lwM2MObject;
   Device: lwM2MObject;
-  FirmwareUpdate: lwM2MObject;
+  "Firmware Update": lwM2MObject;
   Humidity: lwM2MObject;
   Location: lwM2MObject;
-  LwM2MServer: lwM2MObject;
+  "LwM2M Server": lwM2MObject;
   Pressure: lwM2MObject;
-  PushButton: lwM2MObject;
+  "Push button": lwM2MObject;
   Temperature: lwM2MObject;
 }
 
