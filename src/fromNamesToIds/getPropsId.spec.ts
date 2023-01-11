@@ -1,3 +1,4 @@
+import { LwM2MIds } from "../shadow/LwM2M-ids";
 import { getPropId, getPropsId } from "./getPropsId";
 import { Properties } from "./nameToId";
 
@@ -26,7 +27,7 @@ describe("getPropsId", () => {
         "5701": "Celsius degrees",
       },
     ]
-    expect(getPropsId(props, resourceName)).toStrictEqual(expected);
+    expect(getPropsId(props, resourceName, LwM2MIds)).toStrictEqual(expected);
   });
 
   it("should ignore not recognized values", () => {
@@ -42,7 +43,7 @@ describe("getPropsId", () => {
       },
     ];
     const resourceName = "not a LwM2M resource";
-    expect(getPropsId(props, resourceName as any)).toStrictEqual([{}]);
+    expect(getPropsId(props, resourceName as any, LwM2MIds)).toStrictEqual([{}]);
   });
 });
 

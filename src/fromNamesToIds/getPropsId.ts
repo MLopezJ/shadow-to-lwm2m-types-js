@@ -8,12 +8,13 @@ import type { LwM2MTypes } from "../shadow/LwM2M-ids";
  */
  export const getPropsId = (
     object: Properties,
-    resource: keyof LwM2MTypes
+    resource: keyof LwM2MTypes,
+    resourcesIds: LwM2MTypes
   ): (Record<string, string> | undefined)[] =>
     object!.map((propsObject: Record<string, string>) =>
       Object.entries(propsObject)
         .map(([name, value]: [string, string]) => {
-          return pairValue(name, value, getLwM2MProps(resource ?? "") ?? {});
+          return pairValue(name, value, getLwM2MProps(resource ?? "", resourcesIds) ?? {});
         })
         .filter((element) => element !== undefined)
         .reduce((previus, current) => {

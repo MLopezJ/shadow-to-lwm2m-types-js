@@ -1,7 +1,8 @@
 import { main } from "./index";
 import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json";
+import { LwM2MIds } from "./shadow/LwM2M-ids";
 
-describe("end to end", () => {
+describe("main", () => {
   it("should test complete flow of process", async () => {
     const input = {
       state: {
@@ -68,7 +69,8 @@ describe("end to end", () => {
       ],
     };
 
-    const result = await main(input, coioteLwM2MJsonShcema)
+    
+    const result = await main(input, coioteLwM2MJsonShcema,LwM2MIds )
     expect(Object.keys(input.state.reported).length).toEqual(
       Object.keys(result).length
     );

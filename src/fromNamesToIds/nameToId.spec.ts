@@ -1,5 +1,6 @@
 import { ShadowWithoutNotProvidedValues } from "../cleanShadow/removeNotProvidedValues";
 import { nameToId, ShadowWithIds } from "./nameToId";
+import { LwM2MIds } from "../shadow/LwM2M-ids";
 
 describe("combine", () => {
   it("given a 'clean' plain object shadow it should replace names with equivalent id", () => {
@@ -61,7 +62,7 @@ describe("combine", () => {
         { "0": "195", "1": "0" },
       ],
     };
-    expect(nameToId(input)).toStrictEqual(expected);
+    expect(nameToId(input, LwM2MIds)).toStrictEqual(expected);
   }),
     it("Should ignore not recognized values", () => {
       const input: ShadowWithoutNotProvidedValues = {
@@ -121,6 +122,6 @@ describe("combine", () => {
           },
         ],
       };
-      expect(nameToId(input)).toStrictEqual(expected);
+      expect(nameToId(input, LwM2MIds)).toStrictEqual(expected);
     });
 });
