@@ -16,8 +16,7 @@ npm test
 In order to generate a LwM2M representation of a shadow, it is needed to provided 2 documents: 
 
 1. Shadow 
-2. Object with the relation between names and ids
-* 2.1 TypeScript type of the object
+2. Object with the relation between names and ids (and its TypeScript types)
 
 Then, execute the main function 
 
@@ -26,6 +25,14 @@ Then, execute the main function
 main(shadow, jsonSchema, ids);
 
 ```
+
+### Example 
+
+* [shadow](./src/input/shadow.json)
+* [Object with ids (LwM2MIds)](./src/input/LwM2M-ids/index.ts) 
+* [TypeScript Types (LwM2MTypes)](./src/input/LwM2M-ids/index.ts) 
+
+See [example](./src/example.ts) for more.
 
 ## Expected Input
 
