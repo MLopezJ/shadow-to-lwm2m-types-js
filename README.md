@@ -13,18 +13,17 @@ npm test
 
 ## How to use it
 
-In order to generate a LwM2M representation of a shadow, it is needed to provided 3 documents: 
+In order to generate a LwM2M representation of a shadow, it is needed to provided 2 documents: 
 
 1. Shadow 
-2. Json Schema of the shadow 
-3. Object with the relation between names and ids
-* 3.1 TypeScript type of the object
+2. Object with the relation between names and ids
+* 2.1 TypeScript type of the object
 
 Then, execute the main function 
 
 ``` javascript
 
-main(shadow, jsonShcema, ids);
+main(shadow, jsonSchema, ids);
 
 ```
 
