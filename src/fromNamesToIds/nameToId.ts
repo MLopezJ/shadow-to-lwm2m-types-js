@@ -11,14 +11,15 @@ export type ShadowWithIds = Record<string, (Record<string, string | string[]> | 
  * Replace names with their equivalent ID
  */
 export const nameToId = (
-  shadow: ShadowWithoutNotProvidedValues
+  shadow: ShadowWithoutNotProvidedValues,
+  resourcesIds: LwM2MTypes
 ): ShadowWithIds =>
   Object.keys(shadow)
     .map((resource) => {
-      const resourceId = getResourceId(resource as keyof LwM2MTypes);
+      const resourceId = getResourceId(resource as keyof LwM2MTypes, resourcesIds);
       if (resourceId !== undefined) {
         const props = shadow[`${resource}`]!;
-        const propsId = getPropsId(props as Properties, resource as keyof LwM2MTypes)
+        const propsId = getPropsId(props as Properties, resource as keyof LwM2MTypes, resourcesIds)
         return {
           [`${resourceId}`]: propsId,
         };
