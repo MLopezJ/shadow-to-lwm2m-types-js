@@ -1,5 +1,5 @@
 import { getResourceId } from "./getResourceId";
-import { LwM2MIds } from "../shadow/LwM2M-ids";
+import { LwM2MIds } from "../input/LwM2M-ids";
 
 describe("getResourceId", () => {
   it.each([

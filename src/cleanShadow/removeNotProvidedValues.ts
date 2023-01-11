@@ -1,5 +1,5 @@
 import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
-import { propMap, value } from "../shadow/shadowType";
+import { propMap, value } from "../input/shadowType";
 /**
  * {
  *  "Temperature": [

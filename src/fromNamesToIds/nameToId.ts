@@ -1,5 +1,5 @@
 import { ShadowWithoutNotProvidedValues } from "../cleanShadow/removeNotProvidedValues";
-import type { LwM2MTypes } from "../shadow/LwM2M-ids";
+import type { LwM2MTypes } from "../input/LwM2M-ids";
 import { getPropsId } from "./getPropsId";
 import { getResourceId } from "./getResourceId";
 

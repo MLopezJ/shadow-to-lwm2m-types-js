@@ -1,4 +1,4 @@
-import { Temperature } from "../shadow/LwM2M-ids/Temperature";
+import { Temperature } from "../input/LwM2M-ids/Temperature";
 import { pairValue } from "./pairValue";
 
 describe("pairValue", () => {

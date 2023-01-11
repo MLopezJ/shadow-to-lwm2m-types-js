@@ -1,12 +1,13 @@
 import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
 import { nameToId } from "./fromNamesToIds/nameToId";
 import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
-import coioteShadow from "./shadow/shadow.json";
+import coioteShadow from "./input/shadow.json";
 import { fromIdToUrn } from "./updateResourceId";
-import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json";
+import coioteLwM2MJsonShcema from "./input/coioteLwM2MJsonShcema.schema.json";
 import sc from "schema-casting";
-import { ReceivedShadow } from "./shadow/shadowType";
-import { LwM2MIds, LwM2MTypes } from "./shadow/LwM2M-ids";
+import { ReceivedShadow } from "./input/shadowType";
+import { LwM2MIds, LwM2MTypes } from "./input/LwM2M-ids";
+import jsonSchema from '../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json' // TODO: export json schema from lib
 
 /**
  * Complete flow of transformation from Coiote shadow format to LwM2M
@@ -39,4 +40,4 @@ export const main = async (
   // More info: https://github.com/MLopezJ/shadow-to-lwm2m-types-js/issues/3#issuecomment-1376025247
 };
 
-main(coioteShadow, coioteLwM2MJsonShcema, LwM2MIds);
+main(coioteShadow, jsonSchema, LwM2MIds);

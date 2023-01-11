@@ -1,4 +1,4 @@
-import { LwM2MTypes } from "../shadow/LwM2M-ids";
+import { LwM2MTypes } from "../input/LwM2M-ids";
 
 /**
  * Return the resource props given the LwM2M resource name

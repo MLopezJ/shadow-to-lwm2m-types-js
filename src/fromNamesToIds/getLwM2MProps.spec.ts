@@ -1,6 +1,6 @@
-import { LwM2MIds } from "../shadow/LwM2M-ids";
+import { LwM2MIds } from "../input/LwM2M-ids";
 import { getLwM2MProps } from "./getLwM2MProps";
-import { Temperature } from "../shadow/LwM2M-ids/Temperature";
+import { Temperature } from "../input/LwM2M-ids/Temperature";
 
 describe("getLwM2MProps", () => {
     it("Should return the object props given the LwM2M resource name", () => {
