@@ -1,12 +1,12 @@
 import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
 import { nameToId } from "./fromNamesToIds/nameToId";
 import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
-import coioteShadow from "./shadow/shadow.json";
+import coioteShadow from "./input/shadow.json";
 import { fromIdToUrn } from "./updateResourceId";
-import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json";
+import coioteLwM2MJsonShcema from "./input/coioteLwM2MJsonShcema.schema.json";
 import sc from "schema-casting";
-import { ReceivedShadow } from "./shadow/shadowType";
-import { LwM2MIds, LwM2MTypes } from "./shadow/LwM2M-ids";
+import { ReceivedShadow } from "./input/shadowType";
+import { LwM2MIds, LwM2MTypes } from "./input/LwM2M-ids";
 
 /**
  * Complete flow of transformation from Coiote shadow format to LwM2M

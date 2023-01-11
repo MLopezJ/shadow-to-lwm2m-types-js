@@ -1,6 +1,6 @@
 import { ShadowWithoutNotProvidedValues } from "../cleanShadow/removeNotProvidedValues";
 import { nameToId, ShadowWithIds } from "./nameToId";
-import { LwM2MIds } from "../shadow/LwM2M-ids";
+import { LwM2MIds } from "../input/LwM2M-ids";
 
 describe("combine", () => {
   it("given a 'clean' plain object shadow it should replace names with equivalent id", () => {

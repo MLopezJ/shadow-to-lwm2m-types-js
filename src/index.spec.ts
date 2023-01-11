@@ -1,6 +1,6 @@
 import { main } from "./index";
-import coioteLwM2MJsonShcema from "./shadow/coioteLwM2MJsonShcema.schema.json";
-import { LwM2MIds } from "./shadow/LwM2M-ids";
+import coioteLwM2MJsonShcema from "./input/coioteLwM2MJsonShcema.schema.json";
+import { LwM2MIds } from "./input/LwM2M-ids";
 
 describe("main", () => {
   it("should test complete flow of process", async () => {

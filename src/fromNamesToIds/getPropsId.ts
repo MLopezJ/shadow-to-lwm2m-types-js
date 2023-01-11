@@ -1,7 +1,7 @@
 import { getLwM2MProps } from "./getLwM2MProps";
 import { pairValue } from "./pairValue";
 import type { Properties } from "./nameToId";
-import type { LwM2MTypes } from "../shadow/LwM2M-ids";
+import type { LwM2MTypes } from "../input/LwM2M-ids";
 
 /**
  * Transform keys of the object to their equivalent id at the props level

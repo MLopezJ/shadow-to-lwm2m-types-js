@@ -1,4 +1,4 @@
-import { LwM2MIds } from "../shadow/LwM2M-ids";
+import { LwM2MIds } from "../input/LwM2M-ids";
 import { getPropId, getPropsId } from "./getPropsId";
 import { Properties } from "./nameToId";
 

@@ -1,4 +1,4 @@
-import { ShadowObject, value } from "../shadow/shadowType";
+import { ShadowObject, value } from "../input/shadowType";
 
 /**
  * { physCellId: "247" }
