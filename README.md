@@ -22,7 +22,7 @@ Then, execute the main function
 
 ``` javascript
 
-main(shadow, jsonSchema, ids);
+main(shadow, ids);
 
 ```
 
