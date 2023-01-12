@@ -1,9 +1,9 @@
-import type { shadowObject } from "../cleanShadow/removeNotProvidedValues";
-import { fromMapToPlainObject, plainObject } from "./fromMapToPlainObject";
+
+import { fromMapToPlainObject } from "./fromMapToPlainObject";
 
 describe("fromMapToPlainObject()", () => {
   it("should transform a map data struct to plain object", () => {
-    const value: shadowObject = {
+    const value = {
       "Connectivity Monitoring": {
         "0": {
           "Radio Signal Strength": "-96",
@@ -41,7 +41,7 @@ describe("fromMapToPlainObject()", () => {
         },
       },
     };
-    const expected: plainObject = {
+    const expected = {
       "Connectivity Monitoring": [
         {
           "Radio Signal Strength": "-96",
