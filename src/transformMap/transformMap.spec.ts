@@ -1,6 +1,6 @@
-import { fromMapToPlainObject } from "./fromMapToPlainObject";
+import { transformMap } from "./transformMap";
 
-describe("fromMapToPlainObject()", () => {
+describe("transformMap()", () => {
   it("should transform a map data struct to plain object", () => {
     const value = {
       "Connectivity Monitoring": {
@@ -75,9 +75,9 @@ describe("fromMapToPlainObject()", () => {
       ],
     };
 
-    expect(fromMapToPlainObject(value)).toStrictEqual(expected);
+    expect(transformMap(value)).toStrictEqual(expected);
     expect(Object.keys(value).length).toEqual(
-      Object.keys(fromMapToPlainObject(value)).length
+      Object.keys(transformMap(value)).length
     );
   });
   it("should transform map taking in consideration the json schema definition", () => {
@@ -105,7 +105,7 @@ describe("fromMapToPlainObject()", () => {
         "6": "0.0",
       },
     };
-    expect(fromMapToPlainObject(value)).toStrictEqual(expected);
+    expect(transformMap(value)).toStrictEqual(expected);
   });
   it("should transform map into array", () => {
     // Pressure is an array by the schema definition
@@ -138,6 +138,6 @@ describe("fromMapToPlainObject()", () => {
       ],
     };
 
-    expect(fromMapToPlainObject(value)).toStrictEqual(expected);
+    expect(transformMap(value)).toStrictEqual(expected);
   });
 });

@@ -1,6 +1,6 @@
 import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
 import { nameToId } from "./fromNamesToIds/nameToId";
-import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
+import { transformMap } from "./transformMap/transformMap";
 import { fromIdToUrn } from "./updateResourceId";
 import sc from "schema-casting";
 import { ReceivedShadow, ShadowObject } from "./input/shadowType";
@@ -46,7 +46,7 @@ export const main = async (shadow: ReceivedShadow, ids: LwM2MTypes) =>
     shadow.state.reported,
     ids,
     jsonSchema,
-    fromMapToPlainObject, // step 1
+    transformMap, // step 1
     removeNotProvidedValues, // step 2
     nameToId, // step 3
     fromIdToUrn, // step 4

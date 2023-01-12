@@ -177,7 +177,7 @@ describe("steps", () => {
     };
 
     // step 1
-    const fromMapToPlainObject = jest
+    const transformMap = jest
       .fn()
       .mockImplementation(() => resultStep1);
 
@@ -199,14 +199,14 @@ describe("steps", () => {
       shadow.state.reported,
       LwM2MIds,
       jsonSchema,
-      fromMapToPlainObject,
+      transformMap,
       removeNotProvidedValues,
       nameToId,
       fromIdToUrn,
       sc
     );
 
-    expect(fromMapToPlainObject).toHaveBeenCalledWith(shadow.state.reported); // step 1
+    expect(transformMap).toHaveBeenCalledWith(shadow.state.reported); // step 1
     expect(removeNotProvidedValues).toHaveBeenCalledWith(resultStep1); // step 2
     expect(nameToId).toHaveBeenCalledWith(resultStep2, LwM2MIds); // step 3
     expect(fromIdToUrn).toHaveBeenCalledWith(resultStep3); // step 4

@@ -4,7 +4,7 @@ import {
   removeNotProvidedValues,
   ShadowWithoutNotProvidedValues,
 } from "./removeNotProvidedValues";
-import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
+import { PlainShadowObject, Props } from "../transformMap/transformMap";
 
 describe("removeNotProvidedValues", () => {
   it("should iterate object and remove not provided props", () => {

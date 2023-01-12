@@ -1,4 +1,4 @@
-import { PlainShadowObject, Props } from "../fromMapToPlainObject/fromMapToPlainObject";
+import { PlainShadowObject, Props } from "../transformMap/transformMap";
 import { propMap, value } from "../input/shadowType";
 /**
  * {

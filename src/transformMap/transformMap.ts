@@ -20,7 +20,7 @@ export type PlainShadowObject = Record<string, Props[]>;
 /**
  * Transforms data struct to plain object
  */
-export const fromMapToPlainObject = (
+export const transformMap = (
   value: ShadowObject
 ): PlainShadowObject => {
   const objectKeys = Object.keys(value);
