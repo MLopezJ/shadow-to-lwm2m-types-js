@@ -1,43 +1,55 @@
 import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
 import { nameToId } from "./fromNamesToIds/nameToId";
 import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
-import coioteShadow from "./input/shadow.json";
 import { fromIdToUrn } from "./updateResourceId";
-import coioteLwM2MJsonShcema from "./input/coioteLwM2MJsonShcema.schema.json";
 import sc from "schema-casting";
-import { ReceivedShadow } from "./input/shadowType";
-import { LwM2MIds, LwM2MTypes } from "./input/LwM2M-ids";
-import jsonSchema from '../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json' // TODO: export json schema from lib
+import { ReceivedShadow, ShadowObject } from "./input/shadowType";
+import { LwM2MTypes } from "./input/LwM2M-ids";
+import jsonSchema from "../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json"; // TODO: export json schema from lib
 
 /**
- * Complete flow of transformation from Coiote shadow format to LwM2M
+ * Steps to shadow transformation
  */
-// TODO: define json shcema type using @nordicsemiconductor/lwm2m-types lib
-export const main = async (
-  shadow: ReceivedShadow,
-  jsonSchema: any,
-  ids: LwM2MTypes 
+export const steps = async (
+  shadow: ShadowObject,
+  ids: LwM2MTypes,
+  schema: typeof jsonSchema,
+  step1: Function,
+  step2: Function,
+  step3: Function,
+  step4: Function,
+  step5: Function
 ) => {
   // step 1: Transform shadow from map to plain object
-  const plainObject = fromMapToPlainObject(shadow.state.reported);
-
+  const plainObject = step1(shadow);
+  
   // step 2: Remove not provided values
-  const cleanObject = removeNotProvidedValues(plainObject);
+  const cleanObject = step2(plainObject);
 
   // step 3: Combine ids with values
-  const objectWithIds = nameToId(cleanObject, ids); 
+  const objectWithIds = step3(cleanObject, ids);
 
   // step 4: Transform id of element to URN
-  const objectWithUrn = await fromIdToUrn(objectWithIds!);
+  const objectWithUrn = await step4(objectWithIds!);
 
   // step 5: Cast data
-  const castObject = sc(jsonSchema, objectWithUrn);
+  const castObject = step5(schema, objectWithUrn);
 
   return castObject;
-  // step 6: validate result
-  const result = {};
-  // TODO: add validate function from @nordicsemiconductor/lwm2m-types
-  // More info: https://github.com/MLopezJ/shadow-to-lwm2m-types-js/issues/3#issuecomment-1376025247
 };
 
-main(coioteShadow, jsonSchema, LwM2MIds);
+/**
+ * Transform shadow to LwM2M format given the relation between the shadow keys and the LwM2M objects ids
+ */
+export const main = async (shadow: ReceivedShadow, ids: LwM2MTypes) =>
+  await steps(
+    shadow.state.reported,
+    ids,
+    jsonSchema,
+    fromMapToPlainObject, // step 1
+    removeNotProvidedValues, // step 2
+    nameToId, // step 3
+    fromIdToUrn, // step 4
+    sc // step 5
+  );
+
