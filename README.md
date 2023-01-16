@@ -227,6 +227,10 @@ export const Temperature = {
 ## Expected process: validate object
 - [ ] Done
 
+### TODO:
+- [ ] Export `validate` and `createURN` from `@nordicsemiconductor/lwm2m-types`
+- [ ] Use `@nordicsemiconductor/lwm2m-types` to define prop type https://github.com/MLopezJ/shadow-to-lwm2m-types-js/pull/4/files#diff-a2a171449d862fe29692ce031981047d7ab755ae7f84c707aef80701b3ea0c80 
+
 ```typescript
 import { validate } from "@nordicsemiconductor/lwm2m-types";
 const temperature = {
