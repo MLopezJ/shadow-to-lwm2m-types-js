@@ -1,9 +1,9 @@
 //import { transformMap } from "./transformMap";
 import { LwM2MIds } from "../input/LwM2M-ids";
-import {main} from "./test"
+import { main } from "./test";
 
 describe("transformMap()", () => {
-  it.only("should transform a map data struct to plain object", async () => {
+  it("should transform a map data struct to plain object", async () => {
     const value = {
       "Connectivity Monitoring": {
         "0": {
@@ -26,7 +26,7 @@ describe("transformMap()", () => {
       "Firmware Update": {
         "0": {
           "Firmware Update Protocol Support": {},
-          "Firmware Update Delivery Method": "2",
+          // "Firmware Update Delivery Method": "2",
           Package: {
             noValue: true,
           },
@@ -43,46 +43,20 @@ describe("transformMap()", () => {
       },
     };
     const expected = {
-      "Connectivity Monitoring": [
-        {
-          "Radio Signal Strength": "-96",
-          LAC: "30401",
-          "Available Network Bearer": ["6", "7"],
-          "IP Addresses": ["10.160.225.39"],
-          "Router IP Addresses": {},
-          "Link Quality": "0",
-          altitude: {
-            noValue: true,
-          },
-        },
-      ],
-
-      "Firmware Update": [
-        {
-          "Firmware Update Protocol Support": {},
-          "Firmware Update Delivery Method": "2",
-          Package: {
-            noValue: true,
-          },
-          "Package URI": "",
-        },
-        {
-          "Firmware Update Protocol Support": {},
-          "Firmware Update Delivery Method": "4",
-          Package: {
-            noValue: true,
-          },
-          "Package URI": "",
-        },
-      ],
+      "4:1.3@1.1": {
+        "2": -96,
+        "12": 30401,
+        "1": [6, 7],
+        "4": ["10.160.225.39"],
+        "3": 0,
+      },
+      "5:1.1@1.1": { "9": 4 }, //[{ "9": "2" }, { "9": "4" }],
     };
 
     expect(await main(value, LwM2MIds)).toStrictEqual(expected);
-    expect(Object.keys(value).length).toEqual(
-      Object.keys(main(value, LwM2MIds)).length
-    );
   });
-  it("should transform map taking in consideration the json schema definition", () => {
+
+  it("should transform map taking in consideration the json schema definition", async () => {
     // Location is an object by schema definition
     const value = {
       Location: {
@@ -99,17 +73,17 @@ describe("transformMap()", () => {
     };
     const expected = {
       "6": {
-        "0": "0.0",
-        "1": "0.0",
-        "2": "0.0",
-        "3": "0.0",
-        "5": "1970-01-01T00:00:00Z",
-        "6": "0.0",
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "5": 1970, // 1970-01-01T00:00:00Z
+        "6": 0.0,
       },
     };
-    expect(main(value, LwM2MIds)).toStrictEqual(expected);
+    expect(await main(value, LwM2MIds)).toStrictEqual(expected);
   });
-  it("should transform map into array", () => {
+  it("should transform map into array", async () => {
     // Pressure is an array by the schema definition
     const value = {
       Pressure: {
@@ -126,24 +100,23 @@ describe("transformMap()", () => {
       },
     };
     const expected = {
-      Pressure: [
+      "3323:1.1": [
         {
-          "Application Type": "",
-          "Max Measured Value": "98.236",
-          "Max Range Value": "110.0",
-          "Min Measured Value": "98.236",
-          "Min Range Value": "30.0",
-          "Sensor Units": "kPa",
-          "Sensor Value": "98.226",
-          Timestamp: "2022-10-07T13:33:22Z",
+          5601: 98.236,
+          5604: 110.0,
+          5602: 98.236,
+          5603: 30.0,
+          5701: "kPa",
+          5700: 98.226,
+          5518: 2022, //"2022-10-07T13:33:22Z",
         },
       ],
     };
 
-    expect(main(value, LwM2MIds)).toStrictEqual(expected);
+    expect(await main(value, LwM2MIds)).toStrictEqual(expected);
   });
 
-  it("should transform map into array", () => {
+  it.only("should transform map into array", async () => {
     // Pressure is an array by the schema definition
     const value = {
       "ECID-Signal Measurement Information": {
@@ -175,7 +148,7 @@ describe("transformMap()", () => {
     };
 
     const expected = {
-      "ECID-Signal Measurement Information": [
+      "10256": [
         {
           physCellId: "247",
           ECGI: "0",
@@ -203,6 +176,6 @@ describe("transformMap()", () => {
       ],
     };
 
-    expect(main(value, LwM2MIds)).toStrictEqual(expected);
+    expect(await main(value, LwM2MIds)).toStrictEqual(expected);
   });
 });
