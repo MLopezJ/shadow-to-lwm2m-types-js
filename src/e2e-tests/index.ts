@@ -1,5 +1,5 @@
 import { main } from "./../index";
-import __ from 'hamjest';
+import __ from "hamjest";
 
 const shadow = {
   state: {
@@ -69,21 +69,16 @@ const equivalentIds = {
 };
 
 const execution = async () => {
-
   // shadow should be defined
   __.assertThat(shadow, __.is(__.defined()));
 
-  // An object with relationship between names and ids should be provided
-  __.assertThat(equivalentIds, __.is(__.defined()));
-
   const expectedResult = {
-    "10256": [{ "5": 0 }, { "5": 23 }, { "5": 23 }],
-    "4:1.3@1.1": [{ "1": ["6", "7"], "2": "-96", "4": ["10.160.225.39"] }],
-    "3303:1.1": [{ "5602": 23.51 }],
+    '10256': [ { '5': 0 }, { '5': 23 }, { '5': 23 } ],
+    '4:1.3@1.1': { '1': [ '6', '7' ], '2': -96, '4': [ '10.160.225.39' ] },
+    '3303:1.1': [ { '5602': 23.51 } ]
   };
 
-  __.assertThat(await main(shadow, equivalentIds as any), __.equalTo(expectedResult)); 
-  
+  __.assertThat(await main(shadow), __.equalTo(expectedResult));
 };
 
 execution();
