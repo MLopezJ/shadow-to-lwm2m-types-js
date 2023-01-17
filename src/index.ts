@@ -6,7 +6,7 @@ import {
   props,
   value,
 } from "./input/shadowType";
-import { getURN } from "./updateResourceId";
+import { getURN } from "./utils";
 
 /**
  *
