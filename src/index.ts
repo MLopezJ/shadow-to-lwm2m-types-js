@@ -9,22 +9,17 @@ import {
 import { getURN } from "./updateResourceId";
 
 /**
- * 
+ *
  * Transform coiote shadow in LwM2M format
  */
-export const main = async (
-  ReceivedShadow: ReceivedShadow,
-) => {
+export const main = async (ReceivedShadow: ReceivedShadow) => {
   const shadow: ShadowObject = ReceivedShadow.state.reported;
 
-  const resources = Object.keys(shadow).map(async (resourceName: string) => {
-
+  const LwM2MResources = Object.keys(shadow).map(async (resourceName: string) => {
     /**
      * Get props from resource
      */
-    const unprocessedProps: props[] = Object.values(
-      shadow[`${resourceName}`]
-    );
+    const unprocessedProps: props[] = Object.values(shadow[`${resourceName}`]);
 
     const resourceId = getResourceId(resourceName);
 
@@ -33,14 +28,15 @@ export const main = async (
      * More: src/input/LwM2M-ids/index.ts
      */
     if (resourceId) {
-
       const resourceUrn = await getURN(resourceId);
       const resourceType = getResourceType(resourceUrn);
 
       /**
        * Process props
        */
-      const props = unprocessedProps.map((prop) => getProps(prop, resourceName, resourceUrn));
+      const props = unprocessedProps.map((prop) =>
+        getProps(prop, resourceName, resourceUrn)
+      );
 
       if (resourceType === "object") {
         const object = props.reduce((current, previus) => {
@@ -54,8 +50,8 @@ export const main = async (
   });
 
   try {
-    const result = await Promise.all(resources);
-    return result
+    const LwM2MObject = await Promise.all(LwM2MResources);
+    return LwM2MObject
       .filter((resource) => resource !== undefined)
       .reduce((current, previus) => {
         return { ...current, ...previus };
@@ -67,7 +63,7 @@ export const main = async (
 
 /**
  * Transform coiote props in LwM2M props
- * 
+ *
  *   1- Remove not provided values
  *   2- Remove not existed props
  *   3- cast data
@@ -79,7 +75,6 @@ const getProps = (
 ) => {
   return Object.entries(propsObject)
     .map(([name, value]: [string, value]) => {
-
       if (isNotProvidedValue(value)) {
         return undefined;
       }
@@ -90,12 +85,15 @@ const getProps = (
         return undefined;
       }
 
-      const castedValue = castData(getPropType(resourceURN, propId), value); // FIX ME
+      const castedValue = castData(
+        getPropType(resourceURN, propId),
+        value as string
+      );
 
       return { [`${propId}`]: castedValue };
     })
     .filter((prop) => prop !== undefined)
-    .reduce((previus: Record<string, string>, current) => { // FIX ME
+    .reduce((previus, current) => {
       return { ...previus, ...current };
     }, {});
 };
@@ -103,7 +101,10 @@ const getProps = (
 /**
  * Should transform data type of given value
  */
-const castData = (type: string, value: string): number | boolean |string | string[]  => {
+const castData = (
+  type: string,
+  value: string
+): number | boolean | string | string[] => {
   // special rule
   if (value === "false" || (value === "true" && type === "integer")) {
     return value === "false" ? 0 : 1;
@@ -162,7 +163,10 @@ const getResourceId = (resourceName: string): string | undefined =>
 /**
  * Return LwM2M id of given prop if exist
  */
-const getPropId = (resourceName: string, propName: string): string | undefined => {
+const getPropId = (
+  resourceName: string,
+  propName: string
+): string | undefined => {
   const resourceExist =
     LwM2MIds[`${resourceName}`] !== undefined
       ? LwM2MIds[`${resourceName}`]
