@@ -1,51 +1,76 @@
-import { main, steps } from "./index";
-import { LwM2MIds } from "./input/LwM2M-ids";
-import jsonSchema from "../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json"; // TODO: export json schema from lib
-
-describe("main", () => {
-  it("should test shadow transformation", async () => {
-    const input = {
-      state: {
-        reported: {
-          Temperature: {
-            "0": {
-              "Application Type": "",
-              "Fractional Timestamp": {
-                noValue: true,
-              },
-              "Max Measured Value": "23.51",
-              "Max Range Value": "85.0",
-              "Measurement Quality Indicator": {
-                noValue: true,
-              },
-              "Measurement Quality Level": {
-                noValue: true,
-              },
-              "Min Measured Value": "23.51",
-              "Min Range Value": "-40.0",
-              "Reset Min and Max Measured Values": {
-                noValue: true,
-              },
-              "Sensor Units": "Celsius degrees",
-              "Sensor Value": "24.57",
-              Timestamp: "2022-10-07T13:33:22Z",
-            },
-          },
-          "ECID-Signal Measurement Information": {
-            "1": {
-              physCellId: "425",
-              ECGI: "0",
-              arfcnEUTRA: "300",
-              "rsrp-Result": "-115",
-              "rsrq-Result": "-12",
-              "ue-RxTxTimeDiff": "23",
-            },
-          },
-        },
-      },
-    };
-
+import coioteShadow from "./input/shadow.json";
+import { main } from "./index";
+describe("new implementation", () => {
+  it("should transform coiote shadow", async () => {
     const expected = {
+      "4:1.3@1.1": {
+        "0": 6,
+        "1": ["6", "7"],
+        "2": -96,
+        "3": 0,
+        "4": ["10.160.225.39"],
+        "7": ["ibasis.iot"],
+        "8": 21627653,
+        "9": 1,
+        "10": 242,
+        "11": 0,
+        "12": 30401,
+      },
+      "10256": [
+        { "0": 247, "1": 0, "2": 6400, "3": -96, "4": -12, "5": 0 },
+        { "0": 425, "1": 0, "2": 300, "3": -115, "4": -12, "5": 23 },
+        { "0": 195, "1": 0, "2": 300, "3": -119, "4": -16, "5": 23 },
+      ],
+      "3:1.2@1.1": {
+        "0": "Nordic Semiconductor ASA",
+        "1": "thingy91_nrf9160",
+        "2": "351358815340515",
+        "3": "0.0.0-development",
+        "7": ["4113"],
+        "11": ["0"],
+        "13": 2022,
+        "16": "U",
+        "18": "nRF9160_SICA",
+        "19": "mfw_nrf9160_1.3.2",
+      },
+      "5:1.1@1.1": { "3": 0, "5": 1, "9": 2 },
+      "3304:1.1": [
+        {
+          "5518": 2022,
+          "5601": 31.064,
+          "5602": 31.064,
+          "5603": 0,
+          "5604": 100,
+          "5700": 28.927,
+          "5701": "%",
+        },
+      ],
+      "6": { "0": 0, "1": 0, "2": 0, "3": 0, "5": 1970, "6": 0 },
+      "1:1.2@1.2": [
+        {
+          "0": 101,
+          "1": 43200,
+          "3": 0,
+          "5": 86400,
+          "6": 0,
+          "7": "U",
+          "23": 0,
+        },
+      ],
+      "3323:1.1": [
+        {
+          "5518": 2022,
+          "5601": 98.236,
+          "5602": 98.236,
+          "5603": 30,
+          "5604": 110,
+          "5700": 98.226,
+          "5701": "kPa",
+        },
+      ],
+      "3347:1.1": [
+        { "5500": 0, "5501": 0, "5518": 1970, "5750": "Push button 1" },
+      ],
       "3303:1.1": [
         {
           "5518": 2022,
@@ -57,159 +82,7 @@ describe("main", () => {
           "5701": "Celsius degrees",
         },
       ],
-      "10256": [
-        {
-          "0": 425,
-          "1": 0,
-          "2": 300,
-          "3": -115,
-          "4": -12,
-          "5": 23,
-        },
-      ],
     };
-
-    const result = await main(input, LwM2MIds);
-    expect(Object.keys(input.state.reported).length).toEqual(
-      Object.keys(result).length
-    );
-    expect(result).toStrictEqual(expected);
-    expect(result).not.toHaveProperty("ECID-Signal Measurement Information");
-    expect(result).toHaveProperty("10256");
-  });
-
-  it("should test process with different inputs", async () => {
-    const shadow = {
-      state: {
-        reported: {
-          Temperature: {
-            "0": {
-              "Sensor Units": "Celsius degrees",
-              "Sensor Value": "24.57",
-            },
-          },
-        },
-      },
-    };
-
-    const anotherShadow = {
-      state: {
-        reported: {
-          "new name here": {
-            "0": {
-              hello: "Celsius degrees",
-              hi: "24.57",
-            },
-          },
-        },
-      },
-    };
-
-    const anotherIdsObject = {
-      "new name here": {
-        id: "3303",
-        name: "new name here",
-        properties: {
-          hi: "5700",
-          hello: "5701",
-        },
-      },
-    };
-
-    const expected = {
-      "3303:1.1": [
-        {
-          "5700": 24.57,
-          "5701": "Celsius degrees",
-        },
-      ],
-    };
-
-    expect(await main(shadow, LwM2MIds)).toStrictEqual(expected);
-    expect(await main(anotherShadow, anotherIdsObject as any)).toStrictEqual(
-      expected
-    );
-  });
-});
-
-describe("steps", () => {
-  it("should test methods are called with expected params", async () => {
-    const shadow = {
-      state: {
-        reported: {
-          Temperature: {
-            "0": {
-              "Sensor Units": "Celsius degrees",
-              "Sensor Value": "24.57",
-              "Fractional Timestamp": {
-                noValue: true,
-              },
-            },
-          },
-        },
-      },
-    };
-
-    const resultStep1 = {
-      Temperature: [
-        {
-          "Sensor Units": "Celsius degrees",
-          "Sensor Value": "24.57",
-          "Fractional Timestamp": {
-            noValue: true,
-          },
-        },
-      ],
-    };
-
-    const resultStep2 = {
-      Temperature: [
-        { "Sensor Units": "Celsius degrees", "Sensor Value": "24.57" },
-      ],
-    };
-
-    const resultStep3 = {
-      "3303": [{ "5700": "24.57", "5701": "Celsius degrees" }],
-    };
-
-    const resultStep4 = {
-      "3303:1.1": [{ "5700": "24.57", "5701": "Celsius degrees" }],
-    };
-
-    // step 1
-    const fromMapToPlainObject = jest
-      .fn()
-      .mockImplementation(() => resultStep1);
-
-    // step 2
-    const removeNotProvidedValues = jest
-      .fn()
-      .mockImplementation(() => resultStep2);
-
-    // step 3
-    const nameToId = jest.fn().mockImplementation(() => resultStep3);
-
-    // step 4
-    const fromIdToUrn = jest.fn().mockImplementation(() => resultStep4);
-
-    // step 5
-    const sc = jest.fn();
-
-    await steps(
-      shadow.state.reported,
-      LwM2MIds,
-      jsonSchema,
-      fromMapToPlainObject,
-      removeNotProvidedValues,
-      nameToId,
-      fromIdToUrn,
-      sc
-    );
-
-    expect(fromMapToPlainObject).toHaveBeenCalledWith(shadow.state.reported); // step 1
-    expect(removeNotProvidedValues).toHaveBeenCalledWith(resultStep1); // step 2
-    expect(nameToId).toHaveBeenCalledWith(resultStep2, LwM2MIds); // step 3
-    expect(fromIdToUrn).toHaveBeenCalledWith(resultStep3); // step 4
-    expect(sc).toHaveBeenCalledWith(jsonSchema, resultStep4); // step 5
+    expect(await main(coioteShadow)).toStrictEqual(expected);
   });
 });

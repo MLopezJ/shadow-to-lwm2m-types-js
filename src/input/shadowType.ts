@@ -15,7 +15,7 @@ export type ShadowObject = Record<string, mapId>;
 /**
  * "0": {...}
  */
-type mapId = Record<string, props>;
+export type mapId = Record<string, props>;
 
 /**
  *

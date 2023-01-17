@@ -22,7 +22,7 @@ export const Device: lwM2MObject = {
     "Model Number": "1",
     Reboot: "4",
     "Reset Error Code": "12",
-    "Serial Number": "12",
+    "Serial Number": "2",
     "Software Version": "19",
     "Supported Binding and Modes": "16",
     Timezone: "15",

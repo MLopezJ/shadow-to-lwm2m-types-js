@@ -1,55 +1,199 @@
-import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
-import { nameToId } from "./fromNamesToIds/nameToId";
-import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
-import { fromIdToUrn } from "./updateResourceId";
-import sc from "schema-casting";
-import { ReceivedShadow, ShadowObject } from "./input/shadowType";
-import { LwM2MTypes } from "./input/LwM2M-ids";
 import jsonSchema from "../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json"; // TODO: export json schema from lib
+import { LwM2MIds } from "./input/LwM2M-ids";
+import {
+  ReceivedShadow,
+  ShadowObject,
+  props,
+  value,
+} from "./input/shadowType";
+import { getURN } from "./updateResourceId";
 
 /**
- * Steps to shadow transformation
+ * 
+ * Transform coiote shadow in LwM2M format
  */
-export const steps = async (
-  shadow: ShadowObject,
-  ids: LwM2MTypes,
-  schema: typeof jsonSchema,
-  step1: Function,
-  step2: Function,
-  step3: Function,
-  step4: Function,
-  step5: Function
+export const main = async (
+  ReceivedShadow: ReceivedShadow,
 ) => {
-  // step 1: Transform shadow from map to plain object
-  const plainObject = step1(shadow);
-  
-  // step 2: Remove not provided values
-  const cleanObject = step2(plainObject);
+  const shadow: ShadowObject = ReceivedShadow.state.reported;
 
-  // step 3: Combine ids with values
-  const objectWithIds = step3(cleanObject, ids);
+  const resources = Object.keys(shadow).map(async (resourceName: string) => {
 
-  // step 4: Transform id of element to URN
-  const objectWithUrn = await step4(objectWithIds!);
+    /**
+     * Get props from resource
+     */
+    const unprocessedProps: props[] = Object.values(
+      shadow[`${resourceName}`]
+    );
 
-  // step 5: Cast data
-  const castObject = step5(schema, objectWithUrn);
+    const resourceId = getResourceId(resourceName);
 
-  return castObject;
+    /**
+     * Exclude if resource is not part of the provided LwM2M resources ids
+     * More: src/input/LwM2M-ids/index.ts
+     */
+    if (resourceId) {
+
+      const resourceUrn = await getURN(resourceId);
+      const resourceType = getResourceType(resourceUrn);
+
+      /**
+       * Process props
+       */
+      const props = unprocessedProps.map((prop) => getProps(prop, resourceName, resourceUrn));
+
+      if (resourceType === "object") {
+        const object = props.reduce((current, previus) => {
+          return { ...current, ...previus };
+        }, {});
+        return { [`${resourceUrn}`]: object };
+      }
+
+      return { [`${resourceUrn}`]: props };
+    }
+  });
+
+  try {
+    const result = await Promise.all(resources);
+    return result
+      .filter((resource) => resource !== undefined)
+      .reduce((current, previus) => {
+        return { ...current, ...previus };
+      }, {});
+  } catch (err) {
+    return err;
+  }
 };
 
 /**
- * Transform shadow to LwM2M format given the relation between the shadow keys and the LwM2M objects ids
+ * Transform coiote props in LwM2M props
+ * 
+ *   1- Remove not provided values
+ *   2- Remove not existed props
+ *   3- cast data
  */
-export const main = async (shadow: ReceivedShadow, ids: LwM2MTypes) =>
-  await steps(
-    shadow.state.reported,
-    ids,
-    jsonSchema,
-    fromMapToPlainObject, // step 1
-    removeNotProvidedValues, // step 2
-    nameToId, // step 3
-    fromIdToUrn, // step 4
-    sc // step 5
-  );
+const getProps = (
+  propsObject: props,
+  resourceName: string,
+  resourceURN: string
+) => {
+  return Object.entries(propsObject)
+    .map(([name, value]: [string, value]) => {
 
+      if (isNotProvidedValue(value)) {
+        return undefined;
+      }
+
+      const propId = getPropId(resourceName, name);
+
+      if (propId === undefined) {
+        return undefined;
+      }
+
+      const castedValue = castData(getPropType(resourceURN, propId), value); // FIX ME
+
+      return { [`${propId}`]: castedValue };
+    })
+    .filter((prop) => prop !== undefined)
+    .reduce((previus: Record<string, string>, current) => { // FIX ME
+      return { ...previus, ...current };
+    }, {});
+};
+
+/**
+ * Should transform data type of given value
+ */
+const castData = (type: string, value: string): number | boolean |string | string[]  => {
+  // special rule
+  if (value === "false" || (value === "true" && type === "integer")) {
+    return value === "false" ? 0 : 1;
+  }
+
+  if (type === "integer") {
+    return parseInt(value, 10);
+  }
+
+  if (type === "number") {
+    return parseFloat(value);
+  }
+
+  if (type === "boolean") {
+    return value === "true" || value === "1";
+  }
+
+  if (type === "array") {
+    return Object.values(value);
+  }
+
+  return value; // string case
+};
+
+/**
+ * Return type of given resource
+ */
+const getResourceType = (resourceUrn: string): string => {
+  return jsonSchema.properties[`${resourceUrn}`].type;
+};
+
+/**
+ * Return type of given prop
+ */
+const getPropType = (resourceURN: string, propId: string) => {
+  const resourceType = getResourceType(resourceURN);
+  const definition =
+    resourceType === "array"
+      ? jsonSchema.properties[`${resourceURN}`].items.properties[`${propId}`]
+      : jsonSchema.properties[`${resourceURN}`].properties[`${propId}`];
+
+  if (definition === undefined) {
+    console.log(resourceURN, propId);
+  }
+  return definition.type;
+};
+
+/**
+ * Return LwM2M id of given resource if exist
+ */
+const getResourceId = (resourceName: string): string | undefined =>
+  LwM2MIds[`${resourceName}`] !== undefined
+    ? LwM2MIds[`${resourceName}`]["id"]
+    : undefined;
+
+/**
+ * Return LwM2M id of given prop if exist
+ */
+const getPropId = (resourceName: string, propName: string): string | undefined => {
+  const resourceExist =
+    LwM2MIds[`${resourceName}`] !== undefined
+      ? LwM2MIds[`${resourceName}`]
+      : false;
+  if (resourceExist) {
+    const propExist = resourceExist["properties"][`${propName}`];
+    if (propExist) {
+      return propExist;
+    }
+  }
+  return undefined;
+};
+
+/**
+ *
+ * Return true if the value is clasificaded as "no provided"
+ *
+ *   No value --> {"noValue": true}
+ *   Empty string --> {prop: ""}
+ *   Empty object --> {prop: {}}
+ */
+const isNotProvidedValue = (value: value): boolean => {
+  // ""
+  if (value === "") return true;
+
+  if (typeof value === "object") {
+    // {prop: {}}
+    if (Object.keys(value).length === 0) return true;
+
+    // {prop: {noValue: true}}
+    if ("noValue" in value && value.noValue === true) return true;
+  }
+  return false;
+};
