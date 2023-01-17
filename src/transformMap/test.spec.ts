@@ -116,7 +116,7 @@ describe("transformMap()", () => {
     expect(await main(value, LwM2MIds)).toStrictEqual(expected);
   });
 
-  it.only("should transform map into array", async () => {
+  it("should transform map into array", async () => {
     // Pressure is an array by the schema definition
     const value = {
       "ECID-Signal Measurement Information": {
@@ -150,28 +150,28 @@ describe("transformMap()", () => {
     const expected = {
       "10256": [
         {
-          0: "247",
-          1: "0",
-          2: "6400",
-          3: "-96",
-          4: "-12",
-          5: "0",
+          0: 247,
+          1: 0,
+          2: 6400,
+          3:-96,
+          4: -12,
+          5: 0,
         },
         {
-          0: "425",
-          1: "0",
-          2: "300",
-          3: "-115",
-          4: "-12",
-         5: "23",
+          0: 425,
+          1: 0,
+          2: 300,
+          3: -115,
+          4: -12,
+         5: 23,
         },
         {
-          0: "195",
-          1: "0",
-          2: "300",
-          3: "-119",
-          4: "-16",
-          5: "23",
+          0: 195,
+          1: 0,
+          2: 300,
+          3: -119,
+          4: -16,
+          5: 23,
         },
       ],
     };
