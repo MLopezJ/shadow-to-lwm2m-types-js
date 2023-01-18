@@ -6,7 +6,7 @@ import {
   props,
   value,
 } from "./input/shadowType";
-import { getURN } from "./utils";
+import { getResourceType, getURN, isNotProvidedValue } from "./utils";
 
 /**
  *
@@ -129,12 +129,6 @@ const castData = (
   return value; // string case
 };
 
-/**
- * Return type of given resource
- */
-const getResourceType = (resourceUrn: string): string => {
-  return jsonSchema.properties[`${resourceUrn}`].type;
-};
 
 /**
  * Return type of given prop
@@ -180,24 +174,3 @@ const getPropId = (
   return undefined;
 };
 
-/**
- *
- * Return true if the value is clasificaded as "no provided"
- *
- *   No value --> {"noValue": true}
- *   Empty string --> {prop: ""}
- *   Empty object --> {prop: {}}
- */
-const isNotProvidedValue = (value: value): boolean => {
-  // ""
-  if (value === "") return true;
-
-  if (typeof value === "object") {
-    // {prop: {}}
-    if (Object.keys(value).length === 0) return true;
-
-    // {prop: {noValue: true}}
-    if ("noValue" in value && value.noValue === true) return true;
-  }
-  return false;
-};

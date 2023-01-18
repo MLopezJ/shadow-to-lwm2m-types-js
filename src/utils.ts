@@ -1,3 +1,6 @@
+import jsonSchema from "../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json"; // TODO: export json schema from lib
+import { value } from "./input/shadowType";
+
 /**
  * Return the URN of the resource following the next format:
  *      '<"oma"|"ext"|"x">:<ObjectID>:<ObjectVersion>@<LWM2MVersion>'
@@ -8,13 +11,42 @@
  *
  */
 export const getURN = async (id: string): Promise<string> => {
-    try {
-      const element = await import(
-        `../node_modules/@nordicsemiconductor/lwm2m-types/types/${id}`
-      );
-      return element[`objectURN`];
-    } catch (err: any) {
-      console.log(err);
-      return err;
-    }
-  };
+  try {
+    const element = await import(
+      `../node_modules/@nordicsemiconductor/lwm2m-types/types/${id}`
+    );
+    return element[`objectURN`];
+  } catch (err: any) {
+    console.log(err);
+    return err;
+  }
+};
+
+/**
+ * Return type of given resource
+ */
+export const getResourceType = (resourceUrn: string): string => {
+  return jsonSchema.properties[`${resourceUrn}`].type;
+};
+
+/**
+ *
+ * Return true if the value is clasificaded as "no provided"
+ *
+ *   No value --> {"noValue": true}
+ *   Empty string --> {prop: ""}
+ *   Empty object --> {prop: {}}
+ */
+export const isNotProvidedValue = (value: value): boolean => {
+  // ""
+  if (value === "") return true;
+
+  if (typeof value === "object") {
+    // {prop: {}}
+    if (Object.keys(value).length === 0) return true;
+
+    // {prop: {noValue: true}}
+    if ("noValue" in value && value.noValue === true) return true;
+  }
+  return false;
+};

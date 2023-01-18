@@ -1,4 +1,4 @@
-import { getURN } from "./utils";
+import { getURN, getResourceType, isNotProvidedValue } from "./utils";
 
 describe("getURN", () => {
   it.each([
@@ -19,5 +19,33 @@ describe("getURN", () => {
       expect(await getURN(value)).toBe(expected);
     }
   );
+});
 
+describe("getResourceType", () => {
+  it.each([
+    ["3303:1.1", "array"],
+    ["3:1.2@1.1", "object"],
+    ["4:1.3@1.1", "object"],
+    ["5:1.1@1.1", "object"],
+    ["6", "object"],
+    ["3323:1.1", "array"],
+    ["3347:1.1", "array"],
+    ["1:1.2@1.2", "array"],
+  ])("Should return resource (%s) type: %s ", (value, expected) => {
+    expect(getResourceType(value)).toBe(expected);
+  });
+});
+
+describe("isNotProvidedValue", () => {
+  it.each([
+    [{ noValue: true }, true],
+    [{ prop: "" }, false],
+    [{ prop: {} }, false],
+    [{ SMNC: "1" }, false],
+    [{ "Router IP Addresses": {} }, false],
+    [{}, true],
+    ["value", false],
+  ])("Should return resource (%s) type: %s ", (value, expected) => {
+    expect(isNotProvidedValue(value)).toBe(expected);
+  });
 });
