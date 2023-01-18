@@ -1,55 +1,107 @@
-import { removeNotProvidedValues } from "./cleanShadow/removeNotProvidedValues";
-import { nameToId } from "./fromNamesToIds/nameToId";
-import { fromMapToPlainObject } from "./fromMapToPlainObject/fromMapToPlainObject";
-import { fromIdToUrn } from "./updateResourceId";
-import sc from "schema-casting";
-import { ReceivedShadow, ShadowObject } from "./input/shadowType";
-import { LwM2MTypes } from "./input/LwM2M-ids";
-import jsonSchema from "../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json"; // TODO: export json schema from lib
+import { LwM2MIds } from "./input/LwM2M-ids";
+import { ReceivedShadow, ShadowObject, props, value } from "./input/shadowType";
+import {
+  castData,
+  getPropId,
+  getPropType,
+  getResourceId,
+  getResourceType,
+  getURN,
+  isNotProvidedValue,
+} from "./utils";
 
 /**
- * Steps to shadow transformation
+ *
+ * Transform coiote shadow in LwM2M format
  */
-export const steps = async (
-  shadow: ShadowObject,
-  ids: LwM2MTypes,
-  schema: typeof jsonSchema,
-  step1: Function,
-  step2: Function,
-  step3: Function,
-  step4: Function,
-  step5: Function
-) => {
-  // step 1: Transform shadow from map to plain object
-  const plainObject = step1(shadow);
-  
-  // step 2: Remove not provided values
-  const cleanObject = step2(plainObject);
+export const main = async (ReceivedShadow: ReceivedShadow) => {
+  const shadow: ShadowObject = ReceivedShadow.state.reported;
 
-  // step 3: Combine ids with values
-  const objectWithIds = step3(cleanObject, ids);
+  const LwM2MResources = Object.keys(shadow).map(
+    async (resourceName: string) => {
+      /**
+       * Get props from resource
+       */
+      const unprocessedProps: props[] = Object.values(
+        shadow[`${resourceName}`]
+      );
 
-  // step 4: Transform id of element to URN
-  const objectWithUrn = await step4(objectWithIds!);
+      const resourceId = getResourceId(resourceName);
 
-  // step 5: Cast data
-  const castObject = step5(schema, objectWithUrn);
+      /**
+       * Exclude if resource is not part of the provided LwM2M resources ids
+       * More: src/input/LwM2M-ids/index.ts
+       */
+      if (resourceId) {
+        const resourceUrn = await getURN(resourceId);
+        const resourceType = getResourceType(resourceUrn);
 
-  return castObject;
+        /**
+         * Process props
+         */
+        const props = unprocessedProps.map((prop) =>
+          getProps(prop, resourceName, resourceUrn)
+        );
+
+        if (resourceType === "object") {
+          const object = props.reduce((current, previus) => {
+            return { ...current, ...previus };
+          }, {});
+          return { [`${resourceUrn}`]: object };
+        }
+
+        return { [`${resourceUrn}`]: props };
+      }
+    }
+  );
+
+  try {
+    const LwM2MObject = await Promise.all(LwM2MResources);
+    return LwM2MObject.filter((resource) => resource !== undefined).reduce(
+      (current, previus) => {
+        return { ...current, ...previus };
+      },
+      {}
+    );
+  } catch (err) {
+    return err;
+  }
 };
 
 /**
- * Transform shadow to LwM2M format given the relation between the shadow keys and the LwM2M objects ids
+ * Transform coiote props in LwM2M props
+ *
+ *   1- Remove not provided values
+ *   2- Remove not existed props
+ *   3- cast data
  */
-export const main = async (shadow: ReceivedShadow, ids: LwM2MTypes) =>
-  await steps(
-    shadow.state.reported,
-    ids,
-    jsonSchema,
-    fromMapToPlainObject, // step 1
-    removeNotProvidedValues, // step 2
-    nameToId, // step 3
-    fromIdToUrn, // step 4
-    sc // step 5
-  );
+const getProps = (
+  propsObject: props,
+  resourceName: string,
+  resourceURN: string
+) => {
+  return Object.entries(propsObject)
+    .map(([name, value]: [string, value]) => {
+      if (isNotProvidedValue(value)) {
+        return undefined;
+      }
+
+      const propId = getPropId(resourceName, name);
+
+      if (propId === undefined) {
+        return undefined;
+      }
+
+      const castedValue = castData(
+        getPropType(resourceURN, propId),
+        value as string
+      );
+
+      return { [`${propId}`]: castedValue };
+    })
+    .filter((prop) => prop !== undefined)
+    .reduce((previus, current) => {
+      return { ...previus, ...current };
+    }, {});
+};
 
