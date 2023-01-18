@@ -4,6 +4,8 @@ import {
   isNotProvidedValue,
   castData,
   getPropType,
+  getResourceId,
+  getPropId,
 } from "./utils";
 
 describe("getURN", () => {
@@ -66,9 +68,12 @@ describe("castData", () => {
     ["false", "boolean", false],
     ["hi", "string", "hi"],
     //["[1,2,3]","array", [1,2,3]] // FIX ME
-  ])("Should cast data. Value: %s Type: %s Result: %s ", (value, type, expected) => {
-    expect(castData(type, value)).toBe(expected);
-  });
+  ])(
+    "Should cast data. Value: %s Type: %s Result: %s ",
+    (value, type, expected) => {
+      expect(castData(type, value)).toBe(expected);
+    }
+  );
 });
 
 describe("getPropType", () => {
@@ -85,4 +90,38 @@ describe("getPropType", () => {
   );
 });
 
-//
+describe("getPropType", () => {
+  it.each([
+    ["3:1.2@1.1", "0", "string"],
+    ["5:1.1@1.1", "3", "integer"],
+    ["3303:1.1", "5603", "number"],
+    ["4:1.3@1.1", "1", "array"],
+  ])(
+    "Should return type from Resource: (%s) Prop: %s ",
+    (resourceUrn, propId, expected) => {
+      expect(getPropType(resourceUrn, propId)).toBe(expected);
+    }
+  );
+});
+
+describe("getResourceId", () => {
+  it.each([
+    ["Connectivity Monitoring", "4"],
+    ["Device", "3"],
+    ["Humidity", "3304"],
+    ["Temperature", "3303"],
+  ])("Should return id from Resource. (%s) should be %s ", (name, expected) => {
+    expect(getResourceId(name)).toBe(expected);
+  });
+});
+
+describe("getPropId", () => {
+  it.each([
+    ["Connectivity Monitoring", "LAC", "12"],
+    ["Device", "Factory Reset", "5"],
+    ["Humidity", "Fractional Timestamp", "6050"],
+    ["Temperature", "Min Range Value", "5603"],
+  ])("Should return id from prop. Resource %s, Prop %s = %s ", (resourceName,propName, expected) => {
+    expect(getPropId(resourceName, propName)).toBe(expected);
+  });
+});

@@ -1,4 +1,5 @@
 import jsonSchema from "../node_modules/@nordicsemiconductor/lwm2m-types/LwM2MDocument.schema.json"; // TODO: export json schema from lib
+import { LwM2MIds } from "./input/LwM2M-ids";
 import { value } from "./input/shadowType";
 
 /**
@@ -33,49 +34,77 @@ export const getResourceType = (resourceUrn: string): string => {
  * Should transform data type of given value
  */
 export const castData = (
-    type: string,
-    value: string
-  ): number | boolean | string | string[] => {
-    // special rule
-    if ((value === "false" || value === "true") && type === "integer") {
-      return value === "false" ? 0 : 1;
-    }
-  
-    if (type === "integer") {
-      return parseInt(value, 10);
-    }
-  
-    if (type === "number") {
-      return parseFloat(value);
-    }
-  
-    if (type === "boolean") {
-      return value === "true" || value === "1";
-    }
-  
-    if (type === "array") {
-      return Object.values(value);
-    }
-  
-    return value; // string case
-  };
+  type: string,
+  value: string
+): number | boolean | string | string[] => {
+  // special rule
+  if ((value === "false" || value === "true") && type === "integer") {
+    return value === "false" ? 0 : 1;
+  }
 
+  if (type === "integer") {
+    return parseInt(value, 10);
+  }
+
+  if (type === "number") {
+    return parseFloat(value);
+  }
+
+  if (type === "boolean") {
+    return value === "true" || value === "1";
+  }
+
+  if (type === "array") {
+    return Object.values(value);
+  }
+
+  return value; // string case
+};
 
 /**
  * Return type of given prop
  */
 export const getPropType = (resourceURN: string, propId: string) => {
-    const resourceType = getResourceType(resourceURN);
-    const definition =
-      resourceType === "array"
-        ? jsonSchema.properties[`${resourceURN}`].items.properties[`${propId}`]
-        : jsonSchema.properties[`${resourceURN}`].properties[`${propId}`];
-  
-    if (definition === undefined) {
-      console.log(resourceURN, propId);
+  const resourceType = getResourceType(resourceURN);
+  const definition =
+    resourceType === "array"
+      ? jsonSchema.properties[`${resourceURN}`].items.properties[`${propId}`]
+      : jsonSchema.properties[`${resourceURN}`].properties[`${propId}`];
+
+  if (definition === undefined) {
+    console.log(resourceURN, propId);
+  }
+  return definition.type;
+};
+
+/**
+ * Return the LwM2M id given resource if exist
+ */
+export const getResourceId = (resourceName: string): string | undefined =>
+  LwM2MIds[`${resourceName}`] !== undefined
+    ? LwM2MIds[`${resourceName}`]["id"]
+    : undefined;
+
+/**
+ * Return LwM2M id of given prop if exist
+ */
+export const getPropId = (
+  resourceName: string,
+  propName: string
+): string | undefined => {
+  const resourceExist =
+    LwM2MIds[`${resourceName}`] !== undefined
+      ? LwM2MIds[`${resourceName}`]
+      : false;
+  if (resourceExist) {
+    const propExist = resourceExist["properties"][`${propName}`];
+    if (propExist) {
+      return propExist;
     }
-    return definition.type;
-  };
+  }
+  return undefined;
+};
+
 /**
  *
  * Return true if the value is clasificaded as "no provided"
