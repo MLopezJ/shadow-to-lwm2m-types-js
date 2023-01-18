@@ -1,4 +1,10 @@
-import { getURN, getResourceType, isNotProvidedValue } from "./utils";
+import {
+  getURN,
+  getResourceType,
+  isNotProvidedValue,
+  castData,
+  getPropType,
+} from "./utils";
 
 describe("getURN", () => {
   it.each([
@@ -49,3 +55,34 @@ describe("isNotProvidedValue", () => {
     expect(isNotProvidedValue(value)).toBe(expected);
   });
 });
+
+describe("castData", () => {
+  it.each([
+    ["false", "integer", 0],
+    ["true", "integer", 1],
+    ["10", "integer", 10],
+    ["10", "number", 10],
+    ["true", "boolean", true],
+    ["false", "boolean", false],
+    ["hi", "string", "hi"],
+    //["[1,2,3]","array", [1,2,3]] // FIX ME
+  ])("Should cast data. Value: %s Type: %s Result: %s ", (value, type, expected) => {
+    expect(castData(type, value)).toBe(expected);
+  });
+});
+
+describe("getPropType", () => {
+  it.each([
+    ["3:1.2@1.1", "0", "string"],
+    ["5:1.1@1.1", "3", "integer"],
+    ["3303:1.1", "5603", "number"],
+    ["4:1.3@1.1", "1", "array"],
+  ])(
+    "Should return type from Resource: (%s) Prop: %s ",
+    (resourceUrn, propId, expected) => {
+      expect(getPropType(resourceUrn, propId)).toBe(expected);
+    }
+  );
+});
+
+//

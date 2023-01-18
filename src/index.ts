@@ -6,7 +6,7 @@ import {
   props,
   value,
 } from "./input/shadowType";
-import { getResourceType, getURN, isNotProvidedValue } from "./utils";
+import { castData, getPropType, getResourceType, getURN, isNotProvidedValue } from "./utils";
 
 /**
  *
@@ -96,54 +96,6 @@ const getProps = (
     .reduce((previus, current) => {
       return { ...previus, ...current };
     }, {});
-};
-
-/**
- * Should transform data type of given value
- */
-const castData = (
-  type: string,
-  value: string
-): number | boolean | string | string[] => {
-  // special rule
-  if (value === "false" || (value === "true" && type === "integer")) {
-    return value === "false" ? 0 : 1;
-  }
-
-  if (type === "integer") {
-    return parseInt(value, 10);
-  }
-
-  if (type === "number") {
-    return parseFloat(value);
-  }
-
-  if (type === "boolean") {
-    return value === "true" || value === "1";
-  }
-
-  if (type === "array") {
-    return Object.values(value);
-  }
-
-  return value; // string case
-};
-
-
-/**
- * Return type of given prop
- */
-const getPropType = (resourceURN: string, propId: string) => {
-  const resourceType = getResourceType(resourceURN);
-  const definition =
-    resourceType === "array"
-      ? jsonSchema.properties[`${resourceURN}`].items.properties[`${propId}`]
-      : jsonSchema.properties[`${resourceURN}`].properties[`${propId}`];
-
-  if (definition === undefined) {
-    console.log(resourceURN, propId);
-  }
-  return definition.type;
 };
 
 /**
